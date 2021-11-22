@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         System.out.print("Point 1");
-        PerlinNoise noise = new PerlinNoise(400,400);
+        PerlinNoise noise = new PerlinNoise(11*50,11*50);
         BufferedImage image = noise.getNoiseImage();
         File output_pix = new File("C://Users//P//Desktop//image.jpg");
         ImageIO.write(image, "jpg", output_pix);
