@@ -24,10 +24,30 @@ public class PerlinNoise2D_stolen {
                 int frequency = 6; //частота(?)
                 double noise = noise((dx * frequency) + time, (dy * frequency) + time);
                 noise = (noise - 1) / 2;
+
+
+
                 int b = (int) (noise * 0xFF);
                 int g = b * 0x100;
                 int r = b * 0x10000;
                 int finalValue = r;
+
+
+                int r = 65536 * (int) (noise * 0xFF) + 256 * (int) (noise * 0xFF) + (int) (noise * 0xFF);
+                System.out.printf("%d%n", (int) (noise * 0xFF));
+                int alpha = (r >> 24) & 0xff;
+
+                int red = (r >> 16) & 0xff;
+
+                int green = (r >> 8) & 0xff;
+
+                int blue = (r) & 0xff;
+
+                System.out.println("ARGB : " + alpha + ", " + red + ", " + green + ", " + blue);
+                int finalValue = r;
+
+
+
                 image.setRGB(x, y, finalValue);
             }
         }

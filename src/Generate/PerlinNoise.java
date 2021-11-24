@@ -8,40 +8,46 @@ import java.awt.image.BufferedImage;
 
 public class PerlinNoise {
 
-    int WIDTH;
-    int HEIGHT;
+    int width;
+    int height;
     double seed; // ±4.9*10-324 до ±1.8*10308
-    int max;
+    double max;
     private static BufferedImage image;
 
     public PerlinNoise(int w, int h)
     {
-        WIDTH = w;
-        HEIGHT = h;
+        width = w;
+        height = h;
         max=0;
         seed = Math.random() * 100;
-        image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     }
 
 
     public PerlinNoise(int w, int h, double s)
     {
-        WIDTH = w;
-        HEIGHT = h;
+        width = w;
+        height = h;
         seed = s;
         max=0;
-        image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     }
 
-    public BufferedImage getNoiseImage() { //double[] getNoise(){
+    //public BufferedImage getNoiseImage() { //double[] getNoise(){
+    public int[][] getNoiseImage() { //double[] getNoise(){
         max = 0;
-        for (int y = 0; y < HEIGHT; y++) {
-            for (int x = 0; x < WIDTH; x++) {
-                double dx = (double) x / WIDTH; //MainWindow.HEIGHT было это
-                double dy = (double) y / HEIGHT;
+        int[][] noiseMap = new int[width][height];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                double dx = (double) x / width; //MainWindow.height было это
+                double dy = (double) y / height;
                 int frequency = 6; //частота(?) 6
                 double noise = noise((dx * frequency) + seed, (dy * frequency) + seed);
-
+                //noise 1 до -1
+                System.out.printf("%f%n",noise);
+                if ((noise)>max){
+                    max= (noise);
+                }
                 noise = (-256)*(noise - 1) / (2*231);
                 System.out.printf("%f%n",noise);
 
@@ -52,10 +58,11 @@ public class PerlinNoise {
                 int r = (b * 0x10000);
                 //System.out.printf("%d%n",r);*/
 
-                if ((int) (noise * 0xFF)>max){
-                    max= (int) (noise * 0xFF);
-                }
-                int r = 65536 *(int) (noise * 0xFF)+256*(int) (noise * 0xFF)+(int) (noise * 0xFF);
+                //if ((int) (noise * 0xFF)>max){
+                //    max= (int) (noise * 0xFF);
+                //}
+
+                /*int r = 65536 *(int) (noise * 0xFF)+256*(int) (noise * 0xFF)+(int) (noise * 0xFF);
                 System.out.printf("%d%n",(int)(noise * 0xFF));
                 int alpha = (r >> 24) & 0xff;
 
@@ -66,15 +73,16 @@ public class PerlinNoise {
                 int blue = (r) & 0xff;
 
                 System.out.println("ARGB : " + alpha + ", " + red + ", " + green + ", " + blue);
-                int finalValue = r;
+                int finalValue = r;*/
 
-
-                image.setRGB(x, y, finalValue);
+                noiseMap[x][y] = (int) (noise * 0xFF);
+                //image.setRGB(x, y, finalValue);
             }
         }
 
         System.out.println(max);
-        return image;
+        return noiseMap;
+        //return image;
     }
 
     private static double noise(double x, double y) {
