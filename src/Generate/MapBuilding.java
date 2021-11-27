@@ -148,9 +148,8 @@ public class MapBuilding {
         int a=0;
         String msg = "Петя лох ";
 
-        while (a < 5) {
+        while (true) {
             System.out.println(msg + ++a);
         }
-
     }
 }
