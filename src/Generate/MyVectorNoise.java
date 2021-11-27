@@ -13,14 +13,14 @@ public class MyVectorNoise {
     int width;
     int height;
     double seed; // от 0 до 100 при генерации в конструкторе умолчания                    double: ±4.9*10-324 до ±1.8*10308
-    double max;
+    //double max;
     static int k;
     private static double[][] g;
 
     public MyVectorNoise(int w, int h) {
         width = w;
         height = h;
-        max = 0;
+       //max = 0;
         k=10;
         seed = Math.random() * 100;
         g = new double[1+(w/11)][1+(h/11)];
@@ -37,7 +37,7 @@ public class MyVectorNoise {
         width = w;
         height = h;
         seed = s;
-        max = 0;
+        //max = 0;
         k=ki;
         g = new double[1+w/(k+1)][1+h/(k+1)];
         for (int i=0;i<1+w/(k+1);i++){
@@ -52,7 +52,7 @@ public class MyVectorNoise {
         width = w;
         height = h;
         seed = Math.random() * 100;
-        max = 0;
+        //max = 0;
         k=ki;
         g = new double[1+w/(k+1)][1+h/(k+1)];
         for (int i=0;i<1+w/(k+1);i++){
@@ -77,10 +77,10 @@ public class MyVectorNoise {
 
 
                 noise = ((-256)*(noise - 1) / (2*231))*((double)256/230);
-                System.out.printf("%f%n", noise);
-                if ((int)(noise * 0xFF) > max) {
-                    max = (int)(noise * 0xFF);
-                }
+                //System.out.printf("%f%n", noise);
+                //if ((int)(noise * 0xFF) > max) {
+                //    max = (int)(noise * 0xFF);
+                //}
 
                 /*int b = (int) (noise * 0xFF);
                 System.out.printf("%d%n",b);
@@ -94,7 +94,7 @@ public class MyVectorNoise {
             }
         }
 
-        System.out.println(max);
+        //System.out.println(max);
         return noiseMap;
     }
 

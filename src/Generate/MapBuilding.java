@@ -68,4 +68,89 @@ public class MapBuilding {
                 .getKey();
         return dominantRGB;
     }
+
+    public static int[][] setID(int[][] map,int weight, int height, byte set){
+        int[][] g = new int[weight][height];
+        switch(set){
+            case (0):
+                for(int x=0;x<weight;x++){
+                    for (int y=0;y<height;y++){
+                        System.out.printf("%d%n", map[x][y]);
+                        g[x][y]=setIDFirstSet(map[x][y]);
+                        System.out.printf("Цвет поменяли %d%n", g[x][y]);
+                    }
+                }
+                break;
+            case (1):
+                for(int x=0;x<weight;x++){
+                    for (int y=0;y<height;y++){
+                        System.out.printf("%d%n", map[x][y]);
+                        g[x][y]=setIDSecondSet(map[x][y]);
+                        System.out.printf("Цвет поменяли %d%n", g[x][y]);
+                    }
+                }
+                break;
+        }
+        return g;
+    }
+
+    public static int setIDFirstSet(int x) {
+        int i=0;
+        if (x < 50) {//коричневый (тип земля)
+            i=  0;
+        }
+        else if(x<100){//песочный
+            i=  1;
+        }
+        else if(x<150){//зеленый
+            i=  2;
+        }
+        else if(x<200){//серый
+            i=  3;
+        }
+        else i=  4;//черный
+        /*if (i < 50) {//коричневый (тип земля)
+            i=  65536 *139+256*69+19;
+        }
+        else if(i<100){//песочный
+            i=  65536 *240+256*230+140;
+        }
+        else if(i<150){//зеленый
+            i=  65536 *152+256*251+152;
+        }
+        else if(i<200){//серый
+            i=  65536 *105+256*105+105;
+        }
+        else i=  65536 *0+256*0+0;*/
+        return i;
+    }
+    public static int setIDSecondSet(int x) {
+        int i=0;
+
+        if (x < 70) {//коричневый (тип земля)
+            i=  0;
+        }
+        else if(x<110){//песочный
+            i=  1;
+        }
+        else if(x<170){//зеленый
+            i=  2;
+        }
+        else if(x<210){//серый
+            i=  3;
+        }
+        else i=  4;//черный
+        return i;
+
+    }
+
+    public static void main(String[] args) {
+        int a=0;
+        String msg = "Петя лох ";
+
+        while (a < 5) {
+            System.out.println(msg + ++a);
+        }
+
+    }
 }
