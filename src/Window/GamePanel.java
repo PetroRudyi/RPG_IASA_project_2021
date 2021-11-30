@@ -1,5 +1,7 @@
 package Window;
 
+import Character.CharacterHandler;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Dimension;
@@ -19,7 +21,7 @@ public class GamePanel extends JPanel implements Runnable {
     //fps - frames per second
     int fps = 60;
 
-    Character.CharacterHandler keyH = new Character.CharacterHandler();
+    CharacterHandler keyH = new CharacterHandler();
     Thread gameThread;
 
     //default position of character

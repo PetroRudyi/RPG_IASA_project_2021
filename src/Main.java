@@ -1,5 +1,6 @@
-import Window.*;
-
+import java.awt.Window.*;
+import Generate.Generate;
+import Window.GamePanel;
 import javax.swing.*;
 import java.io.IOException;
 import java.util.Scanner;
