@@ -75,18 +75,18 @@ public class MapBuilding {
             case (0):
                 for(int x=0;x<weight;x++){
                     for (int y=0;y<height;y++){
-                        System.out.printf("%d%n", map[x][y]);
+                        //System.out.printf("%d%n", map[x][y]);
                         g[x][y]=setIDFirstSet(map[x][y]);
-                        System.out.printf("Цвет поменяли %d%n", g[x][y]);
+                        //System.out.printf("Цвет поменяли %d%n", g[x][y]);
                     }
                 }
                 break;
             case (1):
                 for(int x=0;x<weight;x++){
                     for (int y=0;y<height;y++){
-                        System.out.printf("%d%n", map[x][y]);
+                        //System.out.printf("%d%n", map[x][y]);
                         g[x][y]=setIDSecondSet(map[x][y]);
-                        System.out.printf("Цвет поменяли %d%n", g[x][y]);
+                        //System.out.printf("Цвет поменяли %d%n", g[x][y]);
                     }
                 }
                 break;
