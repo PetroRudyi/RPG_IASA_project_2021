@@ -111,6 +111,10 @@ public class Generate {
         return image;
     }
 
+    int getCountIsland(){
+        return MapBuilding.numIslands(mapImage,pixel);
+    }
+
     public static void main(String[] args) throws IOException {
         int count = 1;
         boolean c = true;
@@ -144,6 +148,7 @@ public class Generate {
             File output_pix = new File(str);
             ImageIO.write(image, "jpg", output_pix);
             count++;
+            System.out.println(M.getCountIsland());
         }while(c);
         in.close();
     }
