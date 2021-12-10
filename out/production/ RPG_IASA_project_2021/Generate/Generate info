@@ -1,0 +1,4 @@
+Вывод карты месности через
+Generate M = new Generate(12 * 50, 12 * 50, k, p);// k+1 кратно w и h, p кратно w и h
+int [][] map = M.getMap();
+
