@@ -13,15 +13,20 @@ public class Player extends Entity{
     GamePanel gp;
     CharacterHandler keyH;
 
+    public final int screenX;
+    public final int screenY;
+
     public Player(GamePanel gp, CharacterHandler keyH){
         this.gp = gp;
         this.keyH = keyH;
+        screenX = gp.screenWidth/2 - (gp.tileSize/2);
+        screenY = gp.screenHeight/2- (gp.tileSize/2);
         setDefaultValues();
         getPlayerImage();
     }
     public void setDefaultValues(){
-        x=100;
-        y=100;
+        worldX =gp.tileSize * 23;
+        worldY =gp.tileSize * 21;
         speed = 4;
     }
     public void getPlayerImage(){
@@ -33,19 +38,19 @@ public class Player extends Entity{
     }
     public void update(){
         if (keyH.upPressed) {
-            y -= speed;
+            worldY -= speed;
         } else if (keyH.downPressed) {
-            y += speed;
+            worldY += speed;
         } else if (keyH.leftPressed) {
-            x-= speed;
+            worldX -= speed;
         } else if (keyH.rightPressed) {
-            x += speed;
+            worldX += speed;
         }
     }
     public void draw(Graphics2D g2){
 //        g2.setColor(Color.white);
 //        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
         BufferedImage image = im;
-        g2.drawImage(image, x, y,gp.tileSize, gp.tileSize, null );
+        g2.drawImage(image, screenX, screenY,gp.tileSize, gp.tileSize, null );
     }
 }
