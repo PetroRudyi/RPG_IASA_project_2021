@@ -143,46 +143,7 @@ public class MapBuilding {
 
     }
 
-    public static int numIslands(int[][] grid, int p) {
-        //ArrayList<ArrayList<Integer[][]>> xyisland = new ArrayList<ArrayList<Integer[][]>>();
-        int m = grid.length;
-        int n = grid[0].length;
-        short island = 0;
-        for (int i =0; i<m;i+=p){
-            for (int j = 0; j < n; j+=p){
-                if(checkWalk(grid[i][j])){
-                    //xyisland.add(new ArrayList<Integer[][]>());
-                    //xyisland.get(island).add(new Integer[1][1]);
-                    island++;
-                    checkIsland(grid, m, n, i, j,p);
-                }
-            }
-        }
-        return island;
-    }
 
-    static boolean checkWalk(int c){
-        boolean g;
-        switch (c) {
-            case (3), (4) -> g = false;
-            case (0), (1), (2) -> g = true;
-            default -> throw new IllegalStateException("Unexpected value: " + c);
-        }
-        return g;
-    }
-
-    static void checkIsland(int[][] grid, int m, int n, int i, int j, int p){
-
-        if ((i<0)||(j<0)||(i>=m)||(j>=n)||(!checkWalk(grid[i][j]))){
-            return;
-        }
-
-        grid[i][j]=4;
-        checkIsland(grid, m, n, i+p, j,p);
-        checkIsland(grid, m, n, i, j+p,p);
-        checkIsland(grid, m, n, i-p, j,p);
-        checkIsland(grid, m, n, i, j-p,p);
-    }
 
 
     public static void main(String[] args) {
