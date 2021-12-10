@@ -14,7 +14,7 @@ public class Generate {
     int width;
     int height;
     int pixel;
-    ArrayList<ArrayList<Integer[][]>> xyisland = new ArrayList<>();
+    ArrayList<ArrayList<Integer[]>> xyisland = new ArrayList<>();
 
 
     public Generate(int w, int h, int k, int p){
@@ -26,6 +26,7 @@ public class Generate {
         MyVectorNoise(k);
         Pixelation(p);
         this.mapImage=MapBuilding.setID(mapImage,w,h,(byte)1);
+        this.map = this.getIdMap();
     }
 
     void MyVectorNoise (int k){
@@ -114,8 +115,7 @@ public class Generate {
         return image;
     }
 
-    private static int[][] copyArray(int[][] origin)
-    {
+    private static int[][] copyArray(int[][] origin) {
         int[][] copy = new int[origin.length][origin[0].length];
         for ( int i = 0 ; i < origin.length; ++i)
         {
@@ -152,17 +152,24 @@ public class Generate {
         return g;
     }
 
-    void checkIsland(int[][] grid, int m, int n, int i, int j, short island){
+    void checkIsland(int[][] grid, int m, int n, int i, int j, short island)  {
 
         if ((i<0)||(j<0)||(i>=m)||(j>=n)||(!checkWalk(grid[i][j]))){
             return;
         }
-        Integer[][] k = new Integer[1][1];
-        k[0][0]=grid[i][j];
+        Integer[] k = {i,j};
         (this.xyisland.get(island-1)).add(k);
         k=null;
         grid[i][j]=4;
-        System.out.println(island+"  "+(this.xyisland.get(island-1)).size());
+
+        for(int y =0; y< grid[0].length;y++){
+            for (int[] ints : grid) {
+                System.out.print(ints[y] + " ");
+            }
+            System.out.print("\n");
+        }
+
+        System.out.println(island+"  "+(this.xyisland.get(island-1)).size()+"  x:"+i+"  y:"+j);
         checkIsland(grid, m, n, i+1, j,island);
         checkIsland(grid, m, n, i, j+1,island);
         checkIsland(grid, m, n, i-1, j,island);
@@ -173,7 +180,7 @@ public class Generate {
         return this.xyisland.get(i).size();
     }
 
-    int getCountIsland(){
+    int getCountIsland() {
         return numIslands();
     }
 
@@ -195,13 +202,13 @@ public class Generate {
             //PerlinNoise noise = new PerlinNoise(11*50,11*50);
             int [][] map = M.getIdMap();
             for(int y =0; y< map[0].length;y++){
-                for (int x=0; x<map.length; x++){
-                    System.out.print(map[x][y]+" ");
+                for (int[] ints : map) {
+                    System.out.print(ints[y] + " ");
                 }
-                System.out.printf("\n");
+                System.out.print("\n");
             }
             BufferedImage image = M.getMapIDImage();
-            String str = "C://Users//P//Desktop//Test_" + count;
+            String str = System.getProperty("user.home") + "/Desktop/"+"Test_" + count;
             str = str + "_";
             str = str + k;
             str = str + "_";
@@ -211,10 +218,13 @@ public class Generate {
             ImageIO.write(image, "jpg", output_pix);
             count++;
             int ci= M.getCountIsland();
-            System.out.println(M.getCountIsland());
+            System.out.println(ci);
 
             for (short i=0;i<ci;i++) {
-                System.out.println(M.getIslandArea(i));
+               System.out.println(M.getIslandArea(i));
+            }
+            for(int i=0;i<5;++i) {
+                System.out.println(i+"  :"+M.checkWalk(i));
             }
 
         }while(c);
