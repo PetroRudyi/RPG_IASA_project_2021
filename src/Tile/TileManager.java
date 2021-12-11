@@ -1,14 +1,9 @@
 package Tile;
 
+import Generate.Generate;
 import Window.GamePanel;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Objects;
 
 public class TileManager {
     GamePanel gp;
@@ -18,73 +13,62 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[5];
-        mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
+        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
-        loadMap("/images/player/testMap.txt");
+
+        int k = 9;
+        int p = 2;
+        loadMap(k, p);
     }
+
 
     public void getTileImage() {
+        tile[4] = new Tile();
+        tile[4].color = Color.getHSBColor(0, 0, 0);
         tile[0] = new Tile();
-        final Color color1 =
-                tile[0].color = Color.YELLOW;
+        tile[0].color = Color.getHSBColor(139, 69, 19);;
         tile[1] = new Tile();
-        tile[1].color = Color.GRAY;
+        tile[1].color = Color.getHSBColor(240, 230, 140);
         tile[2] = new Tile();
-        tile[2].color = Color.getHSBColor(150, 110, 7);
+        tile[2].color =  Color.getHSBColor(152,251, 152);
+        tile[3] = new Tile();
+        tile[3].color = Color.getHSBColor(105, 105,105);
+//        case (0) -> 65536 * 139 + 256 * 69 + 19;
+//        case (1) -> 65536 * 240 + 256 * 230 + 140;
+//        case (2) -> 65536 * 152 + 256 * 251 + 152;
+//        case (3) -> 65536 * 105 + 256 * 105 + 105;
+//        case (4) -> 0;
     }
 
-    public void loadMap(String mapPath) {
-        try {
-            InputStream is = getClass().getResourceAsStream(mapPath);
-            BufferedReader br = null;
-            if (is != null) {
-                br = new BufferedReader(new InputStreamReader(is));
-            }
-            int col = 0;
-            int row = 0;
-            while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
-                String line = br.readLine();
-                while (col < gp.maxScreenCol) {
-                    String[] numbers = line.split(" ");
-                    int num = Integer.parseInt(numbers[col]);
-                    mapTileNum[col][row] = num;
-                    col++;
-                }
-                if (col == gp.maxScreenCol) {
-                    col = 0;
-                    row++;
-                }
-            }
-            br.close();
-        } catch (Exception ignored) {
-
-        }
+    public void loadMap(int k, int p) {
+        Generate M = new Generate(12 * 50, 12 * 50, k, p);
+        mapTileNum = M.getIdMap();
     }
 
     public void draw(Graphics2D g2) {
-//        for (int y = 0; y < mapTileNum[0].length; y++) {
-//            for (int[] ints : mapTileNum) {
-//                System.out.print(ints[y] + " ");
-//            }
-//            System.out.println();
-//        }
-        int col = 0;
-        int row = 0;
-        int x = 0;
-        int y = 0;
-        while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
-            int tileNum = mapTileNum[col][row];
+        int worldCol = 0;
+        int worldRow = 0;
 
-            g2.setColor(tile[tileNum].color);
-            g2.fillRect(x, y, gp.tileSize, gp.tileSize); //fillRect, drawRect
-            col++;
-            x += gp.tileSize;
-            if (col == gp.maxScreenCol) {
-                col = 0;
-                x = 0;
-                row++;
-                y += gp.tileSize;
+        while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
+            int tileNum = mapTileNum[worldCol][worldRow];
+            int worldX = worldCol * gp.tileSize;
+            int worldY = worldRow * gp.tileSize;
+            int screenX = worldX - gp.player.worldX + gp.player.screenX;
+            int screenY = worldY - gp.player.worldY + gp.player.screenY;
+            if (worldX + gp.tileSize> gp.player.worldX - gp.player.screenX &&
+                    worldX - gp.tileSize< gp.player.worldX + gp.player.screenX &&
+                    worldY + gp.tileSize> gp.player.worldY - gp.player.screenY &&
+                    worldY - gp.tileSize< gp.player.worldY + gp.player.screenY) {
+                g2.setColor(tile[tileNum].color);
+                g2.fillRect(screenX, screenY, gp.tileSize, gp.tileSize); //fillRect, drawRect
+                g2.setColor(Color.black);
+                g2.drawRect(screenX, screenY, gp.tileSize, gp.tileSize);
+            }
+            worldCol++;
+            if (worldCol == gp.maxWorldCol) {
+                worldCol = 0;
+                worldRow++;
             }
         }
     }
