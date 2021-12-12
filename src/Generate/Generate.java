@@ -30,7 +30,8 @@ public class Generate {
         Pixelation(p);
         this.mapImage=MapBuilding.setID(mapImage,w,h,(byte)1);
         this.map = this.getIdMap();
-        this.countIsland = numIslands();
+        this.xyisland = Islands();
+        this.countIsland = (short)xyisland.size();
 
     }
 
@@ -165,7 +166,8 @@ public class Generate {
         return copy;
     }
 
-    private short numIslands() {
+    private ArrayList<ArrayList<Integer[]>> Islands() {
+        ArrayList<ArrayList<Integer[]>> xyisland = new ArrayList<>();
         int[][] grid = copyArray(map);
         int m = grid.length;
         int n = grid[0].length;
@@ -173,14 +175,14 @@ public class Generate {
         for (int i =0; i<m;i++){
             for (int j = 0; j < n; j++){
                 if(checkWalk(grid[i][j])){
-                    this.xyisland.add(new ArrayList<>());
+                    xyisland.add(new ArrayList<>());
                     island++;
                     //System.out.println("Island  "+island);
                     checkIsland(grid, m, n, i, j,island);
                 }
             }
         }
-        return island;
+        return xyisland;
     }
 
     private boolean checkWalk(int c){
