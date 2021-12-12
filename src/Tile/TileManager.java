@@ -8,7 +8,7 @@ import java.awt.*;
 public class TileManager {
     GamePanel gp;
     Tile[] tile;
-    int mapTileNum[][];
+    int[][] mapTileNum;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -27,7 +27,7 @@ public class TileManager {
         tile[4] = new Tile();
         tile[4].color = Color.getHSBColor(0, 0, 0);
         tile[0] = new Tile();
-        tile[0].color = Color.getHSBColor(139, 69, 19);;
+        tile[0].color = Color.getHSBColor(139, 69, 19);
         tile[1] = new Tile();
         tile[1].color = Color.getHSBColor(240, 230, 140);
         tile[2] = new Tile();

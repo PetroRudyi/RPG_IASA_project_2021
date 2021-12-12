@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 
@@ -14,6 +16,7 @@ public class Generate {
     int width;
     int height;
     int pixel;
+    short countIsland;
     ArrayList<ArrayList<Integer[]>> xyisland = new ArrayList<>();
 
 
@@ -27,6 +30,8 @@ public class Generate {
         Pixelation(p);
         this.mapImage=MapBuilding.setID(mapImage,w,h,(byte)1);
         this.map = this.getIdMap();
+        this.countIsland = numIslands();
+
     }
 
     void MyVectorNoise (int k){
@@ -76,7 +81,6 @@ public class Generate {
         return image;
     }
 
-
     public BufferedImage getMapIDImage() {
         //int max = 0;
         BufferedImage image = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_RGB);
@@ -115,7 +119,44 @@ public class Generate {
         return image;
     }
 
-    private static int[][] copyArray(int[][] origin) {
+
+    public short getCountIsland() {
+        return countIsland;
+    }
+
+    public int getIslandArea(short i){
+        return this.xyisland.get(i).size();
+    }
+
+    public ArrayList<Integer[]> getIslandCoordinates (short i) {
+        return this.xyisland.get(i);
+    }
+
+    public int[] getIslandAreaRating(){
+        int ci = xyisland.size();
+        int[] rating = new int[ci];
+        int[] IslandsSize = new int[ci];
+        int[] IslandsSizeSort = new int[ci];
+        for (int i=0;i<ci;i++){
+            IslandsSize[i] = xyisland.get(i).size();
+            IslandsSizeSort[i] = xyisland.get(i).size();
+        }
+        Arrays.sort(IslandsSizeSort);
+
+        for(int i = 0;i<ci;i++){
+            boolean c=true;
+            for(int j=0;(j<ci)&&c;j++){
+                if(IslandsSizeSort[i]==IslandsSize[j]){
+                    rating[i]=j;
+                    IslandsSize[j]=0;
+                    c=false;
+                }
+            }
+        }
+        return rating;
+    }
+
+    private int[][] copyArray(int[][] origin) {
         int[][] copy = new int[origin.length][origin[0].length];
         for ( int i = 0 ; i < origin.length; ++i)
         {
@@ -124,7 +165,7 @@ public class Generate {
         return copy;
     }
 
-    public int numIslands() {
+    private short numIslands() {
         int[][] grid = copyArray(map);
         int m = grid.length;
         int n = grid[0].length;
@@ -134,7 +175,7 @@ public class Generate {
                 if(checkWalk(grid[i][j])){
                     this.xyisland.add(new ArrayList<>());
                     island++;
-                    System.out.println("Island  "+island);
+                    //System.out.println("Island  "+island);
                     checkIsland(grid, m, n, i, j,island);
                 }
             }
@@ -142,7 +183,7 @@ public class Generate {
         return island;
     }
 
-    boolean checkWalk(int c){
+    private boolean checkWalk(int c){
         boolean g;
         switch (c) {
             case (3), (4) -> g = false;
@@ -152,7 +193,7 @@ public class Generate {
         return g;
     }
 
-    void checkIsland(int[][] grid, int m, int n, int i, int j, short island)  {
+    private void checkIsland(int[][] grid, int m, int n, int i, int j, short island)  {
 
         if ((i<0)||(j<0)||(i>=m)||(j>=n)||(!checkWalk(grid[i][j]))){
             return;
@@ -162,27 +203,23 @@ public class Generate {
         k=null;
         grid[i][j]=4;
 
-        for(int y =0; y< grid[0].length;y++){
+        /*for(int y =0; y< grid[0].length;y++){
             for (int[] ints : grid) {
                 System.out.print(ints[y] + " ");
             }
             System.out.print("\n");
-        }
+        }*/
 
-        System.out.println(island+"  "+(this.xyisland.get(island-1)).size()+"  x:"+i+"  y:"+j);
+        //System.out.println(island+"  "+(this.xyisland.get(island-1)).size()+"  x:"+i+"  y:"+j);
         checkIsland(grid, m, n, i+1, j,island);
         checkIsland(grid, m, n, i, j+1,island);
         checkIsland(grid, m, n, i-1, j,island);
         checkIsland(grid, m, n, i, j-1,island);
     }
 
-    int getIslandArea(short i){
-        return this.xyisland.get(i).size();
-    }
 
-    int getCountIsland() {
-        return numIslands();
-    }
+
+
 
     public static void main(String[] args) throws IOException {
         int count = 1;
@@ -201,12 +238,12 @@ public class Generate {
             //MyVectorNoise noise = new MyVectorNoise(12*50,12*50,19);
             //PerlinNoise noise = new PerlinNoise(11*50,11*50);
             int [][] map = M.getIdMap();
-            for(int y =0; y< map[0].length;y++){
+            /*for(int y =0; y< map[0].length;y++){
                 for (int[] ints : map) {
                     System.out.print(ints[y] + " ");
                 }
                 System.out.print("\n");
-            }
+            }*/
             BufferedImage image = M.getMapIDImage();
             String str = System.getProperty("user.home") + "/Desktop/"+"Test_" + count;
             str = str + "_";
@@ -217,16 +254,17 @@ public class Generate {
             File output_pix = new File(str);
             ImageIO.write(image, "jpg", output_pix);
             count++;
-            int ci= M.getCountIsland();
+            short ci= M.getCountIsland();
             System.out.println(ci);
 
             for (short i=0;i<ci;i++) {
-               System.out.println(M.getIslandArea(i));
-            }
-            for(int i=0;i<5;++i) {
-                System.out.println(i+"  :"+M.checkWalk(i));
+               System.out.println(i+"  :"+M.getIslandArea(i));
             }
 
+            int[] rat = M.getIslandAreaRating();
+            for (int i = 0;i<ci;i++){
+                System.out.println(i+"  :"+rat[i]);
+            }
         }while(c);
         in.close();
     }
