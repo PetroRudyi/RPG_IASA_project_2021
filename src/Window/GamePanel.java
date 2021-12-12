@@ -2,7 +2,7 @@ package Window;
 
 import Character.CharacterHandler;
 import Tile.TileManager;
-import entity.Player;
+import Objects.Entity.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,26 +21,32 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow; //576pix
 
     //World Settings
-    public final int maxWorldCol = 300;
-    public final int maxWorldRow = 300;
+    public int maxWorldCol;
+    public int maxWorldRow;
     public final int worldWidth = tileSize* maxWorldCol;
     public final int worldHeight = tileSize* maxWorldRow;
 
     //fps - frames per second
-    int fps = 60;
+    int fps = 10;
 
-    TileManager tileM = new TileManager(this);
+    TileManager tileM = new TileManager(this, Settings.k,Settings.p);
     CharacterHandler keyH = new CharacterHandler();
     Thread gameThread;
     public Player player = new Player(this, keyH);
 
 
-    public GamePanel() {
+    public GamePanel(int k, int p) {
+        this.maxWorldCol = 600/p;
+        this.maxWorldRow = 600/p;
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
+        System.out.println("Point 5");
         this.setDoubleBuffered(true);
+        System.out.println("Point 6");
         this.addKeyListener(keyH);
+        System.out.println("Point 7");
         this.setFocusable(true);
+        System.out.println("Point 8");
         startGameThread();
     }
 

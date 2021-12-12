@@ -1,5 +1,6 @@
-package entity;
+package Objects.Entity;
 
+import Objects.Entity.Entity;
 import Window.GamePanel;
 import Character.CharacterHandler;
 
@@ -9,26 +10,16 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Player extends Entity{
-    GamePanel gp;
+public class Player extends Entity {
     CharacterHandler keyH;
 
-    public final int screenX;
-    public final int screenY;
 
     public Player(GamePanel gp, CharacterHandler keyH){
-        this.gp = gp;
+        super(gp,gp.screenWidth/2- (gp.tileSize/2),gp.screenHeight/2- (gp.tileSize/2),100,100,20);
         this.keyH = keyH;
-        screenX = gp.screenWidth/2- (gp.tileSize/2);
-        screenY = gp.screenHeight/2- (gp.tileSize/2);
-        setDefaultValues();
         getPlayerImage();
     }
-    public void setDefaultValues(){
-        worldX =gp.tileSize * 23;
-        worldY =gp.tileSize * 21;
-        speed = 4;
-    }
+
     public void getPlayerImage(){
         try{
             im = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/pl1.png")));
@@ -36,6 +27,8 @@ public class Player extends Entity{
             e.printStackTrace();
         }
     }
+
+    @Override
     public void update(){
         if (keyH.upPressed) {
             worldY -= speed;
@@ -52,5 +45,25 @@ public class Player extends Entity{
 //        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
         BufferedImage image = im;
         g2.drawImage(image, screenX, screenY,gp.tileSize, gp.tileSize, null );
+    }
+
+    @Override
+    public double getHP() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxHP() {
+        return 0;
+    }
+
+    @Override
+    public void setHP(double HP) {
+
+    }
+
+    @Override
+    public void setMaxHP(double maxHP) {
+
     }
 }

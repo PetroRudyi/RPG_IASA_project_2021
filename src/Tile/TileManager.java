@@ -10,15 +10,13 @@ public class TileManager {
     Tile[] tile;
     int[][] mapTileNum;
 
-    public TileManager(GamePanel gp) {
+    public TileManager(GamePanel gp, int k, int p) {
         this.gp = gp;
         tile = new Tile[5];
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
 
-        int k = 9;
-        int p = 2;
         loadMap(k, p);
     }
 
