@@ -2,6 +2,7 @@ package Objects.Entity;
 
 import Objects.Entity.Entity;
 import Window.GamePanel;
+import Window.Settings;
 import Character.CharacterHandler;
 
 import javax.imageio.ImageIO;
@@ -15,7 +16,7 @@ public class Player extends Entity {
 
 
     public Player(GamePanel gp, CharacterHandler keyH){
-        super(gp,gp.screenWidth/2- (gp.tileSize/2),gp.screenHeight/2- (gp.tileSize/2),100,100,20);
+        super(gp, Settings.SpawnX,Settings.SpawnY,gp.screenWidth/2- (gp.tileSize/2),gp.screenHeight/2- (gp.tileSize/2),100,100,20);
         this.keyH = keyH;
         getPlayerImage();
     }

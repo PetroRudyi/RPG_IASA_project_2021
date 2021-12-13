@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
-
+import java.util.stream.IntStream;
 
 
 public class Generate {
@@ -17,7 +17,7 @@ public class Generate {
     int height;
     int pixel;
     short countIsland;
-    ArrayList<ArrayList<Integer[]>> xyisland = new ArrayList<>();
+    ArrayList<ArrayList<int[]>> xyisland = new ArrayList<>();
 
 
     public Generate(int w, int h, int k, int p){
@@ -125,11 +125,15 @@ public class Generate {
         return countIsland;
     }
 
-    public int getIslandArea(short i){
+    public int getIslandArea(int i){
         return this.xyisland.get(i).size();
     }
 
-    public ArrayList<Integer[]> getIslandCoordinates (short i) {
+    public ArrayList<ArrayList<int[]>> getIsland () {
+        return this.xyisland;
+    }
+
+    public ArrayList<int[]> getIslandCoordinates (short i) {
         return this.xyisland.get(i);
     }
 
@@ -154,8 +158,16 @@ public class Generate {
                 }
             }
         }
+        int temp;
+        for (int i = 0; i < ci/2; i++) {
+            temp = rating[i];
+            rating[i] = rating[ci-i-1];
+            rating[ci-i-1] = temp;
+        }
+
         return rating;
     }
+
 
     private int[][] copyArray(int[][] origin) {
         int[][] copy = new int[origin.length][origin[0].length];
@@ -198,7 +210,7 @@ public class Generate {
         if ((i<0)||(j<0)||(i>=m)||(j>=n)||(!checkWalk(grid[i][j]))){
             return;
         }
-        Integer[] k = {i,j};
+        int[] k = {i,j};
         (this.xyisland.get(island-1)).add(k);
         k=null;
         grid[i][j]=4;
@@ -218,6 +230,14 @@ public class Generate {
     }
 
 
+    public int[] SpawnPlayerCord(){
+        int i = (this.getIslandAreaRating())[0];
+        int k = (int)(Math.random()*this.getIslandArea(i));
+        int[] a = new int[2];
+        a = (this.xyisland.get(i).get(k));
+        xyisland.get(i).remove(k);
+        return a;
+    }
 
 
 

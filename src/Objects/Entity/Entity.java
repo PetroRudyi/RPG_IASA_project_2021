@@ -3,6 +3,7 @@ package Objects.Entity;
 
 import Objects.GameObject;
 import Window.GamePanel;
+import Window.Settings;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -18,7 +19,7 @@ public class Entity extends GameObject implements LivingStat {
 
     public BufferedImage im;
 
-    public Entity(GamePanel gp,int screenX,int screenY, int MaxHP, int HP, int damage){
+    public Entity(GamePanel gp,int spawnX, int spawnY,int screenX,int screenY, int MaxHP, int HP, int damage){
         this.screenX = screenX;
         this.screenY = screenY;
         this.damage = damage;
@@ -26,8 +27,8 @@ public class Entity extends GameObject implements LivingStat {
         this.HP = HP;
         this.MaxHP = MaxHP;
 
-        worldX =0;
-        worldY =0;
+        worldX =spawnX*gp.tileSize;
+        worldY =spawnY*gp.tileSize;
         speed = gp.tileSize;
         //setDefaultValues();
     }
