@@ -25,7 +25,11 @@ public class Entity extends GameObject implements LivingStat {
         this.gp = gp;
         this.HP = HP;
         this.MaxHP = MaxHP;
-        setDefaultValues();
+
+        worldX =0;
+        worldY =0;
+        speed = gp.tileSize;
+        //setDefaultValues();
     }
 
     public void setDefaultValues(){
