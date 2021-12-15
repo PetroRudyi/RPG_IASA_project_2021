@@ -1,6 +1,7 @@
 package Window;
 
 import Character.CharacterHandler;
+import Collision.CollisionChecker;
 import Tile.TileManager;
 import Objects.Entity.Player;
 
@@ -16,7 +17,7 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 3;
     public final int tileSize = originalTileSize * scale; //so 48*48
     public final int maxScreenCol = 16;
-    public final int maxScreenRow = 12;
+    public final int maxScreenRow = 16;
     public final int screenWidth = tileSize * maxScreenCol; //768pix
     public final int screenHeight = tileSize * maxScreenRow; //576pix
 
@@ -29,9 +30,10 @@ public class GamePanel extends JPanel implements Runnable {
     //fps - frames per second
     int fps = 10;
 
-    TileManager tileM = new TileManager(this, Settings.k,Settings.p);
+    public TileManager tileM = new TileManager(this, Settings.k,Settings.p);
     CharacterHandler keyH = new CharacterHandler();
     Thread gameThread;
+    public CollisionChecker colChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyH);
 
 

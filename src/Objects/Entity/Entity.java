@@ -4,9 +4,9 @@ package Objects.Entity;
 import Objects.GameObject;
 import Window.GamePanel;
 import Window.Settings;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 public class Entity extends GameObject implements LivingStat {
     GamePanel gp;
@@ -14,10 +14,16 @@ public class Entity extends GameObject implements LivingStat {
     public final int screenY;
     public int HP;
     public int MaxHP;
-    public int speed;
     public int damage;
+    public Rectangle solidArea;
+    public boolean collisionOn = false;
 
-    public BufferedImage im;
+
+    public BufferedImage im, up2, down1, down2, left1, left2, right1, right2;
+    public String direction;
+
+    public int spriteCounter = 0;
+    public int spriteNum = 1;
 
     public Entity(GamePanel gp,int spawnX, int spawnY,int screenX,int screenY, int MaxHP, int HP, int damage){
         this.screenX = screenX;
@@ -29,26 +35,26 @@ public class Entity extends GameObject implements LivingStat {
 
         worldX =spawnX*gp.tileSize;
         worldY =spawnY*gp.tileSize;
-        speed = gp.tileSize;
-        //setDefaultValues();
+        Settings.speed = 12;//gp.tileSize;
     }
 
     public void setDefaultValues(){
         worldX =gp.tileSize * 23;
         worldY =gp.tileSize * 21;
-        speed = gp.tileSize;
+        Settings.speed = gp.tileSize;
+        direction = "down";
     }
 
     public void update(){
         int i = (int)(Math.random()*3);
-        if (i==0) {
-            worldY -= speed;
-        } else if (i==1) {
-            worldY += speed;
-        } else if (i==2) {
-            worldX -= speed;
-        } else if (i==3) {
-            worldX += speed;
+        if (i==0 && !collisionOn) {
+            worldY -= Settings.speed;
+        } else if (i==1 && !collisionOn) {
+            worldY += Settings.speed;
+        } else if (i==2 && !collisionOn) {
+            worldX -= Settings.speed;
+        } else if (i==3 && !collisionOn) {
+            worldX += Settings.speed;
         }
     }
 

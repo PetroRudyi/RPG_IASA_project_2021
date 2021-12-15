@@ -8,13 +8,12 @@ import java.awt.*;
 
 public class TileManager {
     GamePanel gp;
-    Tile[] tile;
-    int[][] mapTileNum;
+    public Tile[] tile;
 
     public TileManager(GamePanel gp, int k, int p) {
         this.gp = gp;
         tile = new Tile[5];
-        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+        Settings.mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
 
@@ -23,36 +22,26 @@ public class TileManager {
 
 
     public void getTileImage() {
-        /*tile[4] = new Tile();
-        tile[4].color = Color.getHSBColor(0, 0, 0);
-        tile[0] = new Tile();
-        tile[0].color = Color.getHSBColor(139, 69, 19);
-        tile[1] = new Tile();
-        tile[1].color = Color.getHSBColor(240, 230, 140);
-        tile[2] = new Tile();
-        tile[2].color =  Color.getHSBColor(152,251, 152);
-        tile[3] = new Tile();
-        tile[3].color = Color.getHSBColor(105, 105,105);*/
         tile[4] = new Tile();
         tile[4].color = new Color(0,0, 0);
+        tile[4].collision = true;
         tile[0] = new Tile();
         tile[0].color = new Color(139, 69, 19);
+        tile[0].collision = false;
         tile[1] = new Tile();
         tile[1].color = new Color(240, 230, 140);
+        tile[1].collision = false;
         tile[2] = new Tile();
         tile[2].color =  new Color(152,251, 152);
+        tile[2].collision = false;
         tile[3] = new Tile();
         tile[3].color = new Color(105, 105,105);
-//        case (0) -> 65536 * 139 + 256 * 69 + 19;
-//        case (1) -> 65536 * 240 + 256 * 230 + 140;
-//        case (2) -> 65536 * 152 + 256 * 251 + 152;
-//        case (3) -> 65536 * 105 + 256 * 105 + 105;
-//        case (4) -> 0;
+        tile[3].collision = true;
     }
 
     public void loadMap(int k, int p) {
         Generate M = new Generate(12 * 50, 12 * 50, k, p);
-        mapTileNum = M.getIdMap();
+        Settings.mapTileNum = M.getIdMap();
         int[] scp = M.SpawnPlayerCord();
         Settings.SpawnX = scp[0];
         Settings.SpawnY = scp[1];
@@ -67,7 +56,7 @@ public class TileManager {
         int worldRow = 0;
 
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
-            int tileNum = mapTileNum[worldCol][worldRow];
+            int tileNum = Settings.mapTileNum[worldCol][worldRow];
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
             int screenX = worldX - gp.player.worldX + gp.player.screenX;

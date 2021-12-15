@@ -13,4 +13,9 @@ public class Settings {
 
     //free space
     public static ArrayList<ArrayList<int[]>> xyisland;
+
+    //world map
+    public static int[][] mapTileNum;
+    //character speed
+    public static int speed;
 }

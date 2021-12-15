@@ -1,10 +1,7 @@
 package Objects.Entity;
-
-import Objects.Entity.Entity;
 import Window.GamePanel;
 import Window.Settings;
 import Character.CharacterHandler;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,40 +9,65 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Player extends Entity {
-    CharacterHandler keyH;
+    public static CharacterHandler keyH;
 
-
-    public Player(GamePanel gp, CharacterHandler keyH){
-        super(gp, Settings.SpawnX,Settings.SpawnY,gp.screenWidth/2- (gp.tileSize/2),gp.screenHeight/2- (gp.tileSize/2),100,100,20);
+    public Player(GamePanel gp, CharacterHandler keyH) {
+        super(gp, Settings.SpawnX, Settings.SpawnY, gp.screenWidth / 2 - (gp.tileSize / 2), gp.screenHeight / 2 - (gp.tileSize / 2), 100, 100, 20);
         this.keyH = keyH;
         getPlayerImage();
+        solidArea = new Rectangle(gp.tileSize / 3, gp.tileSize /3, gp.tileSize / 3 + 1, gp.tileSize / 3+1);
     }
-
-    public void getPlayerImage(){
-        try{
+    public void getPlayerImage() {
+        try {
             im = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/pl1.png")));
-        }catch(IOException e){
+//            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/pl1.png"))); doght2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/pl1.png")));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
     @Override
-    public void update(){
-        if (keyH.upPressed) {
-            worldY -= speed;
-        } else if (keyH.downPressed) {
-            worldY += speed;
-        } else if (keyH.leftPressed) {
-            worldX -= speed;
-        } else if (keyH.rightPressed) {
-            worldX += speed;
+    public void update() {
+        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+            if (keyH.upPressed) {
+                direction = "up";
+                if(!collisionOn) {
+                    worldY -= Settings.speed;
+                }
+            } else if (keyH.downPressed) {
+                direction = "down";
+                if(!collisionOn) {
+                    worldY += Settings.speed;
+                }
+            } else if (keyH.leftPressed) {
+                direction = "left";
+                if(!collisionOn) {
+                    worldX -= Settings.speed;
+                }
+            } else if (keyH.rightPressed) {
+                direction = "right";
+                if(!collisionOn) {
+                    worldX += Settings.speed;
+                }
+            }
+            collisionOn = false;
+            gp.colChecker.checkTile(this);
+
+            spriteCounter++;
+            if (spriteCounter > 12) {
+                if (spriteNum == 1) {
+                    spriteNum = 2;
+                } else if (spriteNum == 2) {
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
+            }
         }
     }
-    public void draw(Graphics2D g2){
-//        g2.setColor(Color.white);
-//        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
+
+
+    public void draw(Graphics2D g2) {
         BufferedImage image = im;
-        g2.drawImage(image, screenX, screenY,gp.tileSize, gp.tileSize, null );
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
     @Override
