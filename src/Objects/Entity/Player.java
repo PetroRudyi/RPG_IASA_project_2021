@@ -1,4 +1,5 @@
 package Objects.Entity;
+import Collision.CollisionChecker;
 import Window.GamePanel;
 import Window.Settings;
 import Character.CharacterHandler;
@@ -15,7 +16,7 @@ public class Player extends Entity {
         super(gp, Settings.SpawnX, Settings.SpawnY, gp.screenWidth / 2 - (gp.tileSize / 2), gp.screenHeight / 2 - (gp.tileSize / 2), 100, 100, 20);
         this.keyH = keyH;
         getPlayerImage();
-        solidArea = new Rectangle(gp.tileSize / 3, gp.tileSize /3, gp.tileSize / 3 + 1, gp.tileSize / 3+1);
+        //solidArea = new Rectangle(gp.tileSize / 3, gp.tileSize /3, gp.tileSize / 3 + 1, gp.tileSize / 3+1);
     }
     public void getPlayerImage() {
         try {
@@ -26,8 +27,8 @@ public class Player extends Entity {
         }
     }
     @Override
-    public void update() {
-        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+    public void update(){
+        /*if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             if (keyH.upPressed) {
                 direction = "up";
                 if(!collisionOn) {
@@ -61,7 +62,22 @@ public class Player extends Entity {
                 }
                 spriteCounter = 0;
             }
+        }*/
+
+        System.out.print("maxWorldCol: " + gp.maxWorldCol+"\n");
+        if(CollisionChecker.checkMove(this,keyH)) {
+            if (keyH.upPressed) {
+                worldY -= speed;
+            } else if (keyH.downPressed) {
+                worldY += speed;
+            } else if (keyH.leftPressed) {
+                worldX -= speed;
+            } else if (keyH.rightPressed) {
+                worldX += speed;
+            }
         }
+
+
     }
 
 

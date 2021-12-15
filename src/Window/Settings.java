@@ -17,5 +17,5 @@ public class Settings {
     //world map
     public static int[][] mapTileNum;
     //character speed
-    public static int speed;
+    //public static int speed; //   //(Дуже крута ідея ходьби)
 }

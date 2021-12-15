@@ -9,18 +9,19 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity extends GameObject implements LivingStat {
-    GamePanel gp;
+    public GamePanel gp;
     public final int screenX;
     public final int screenY;
     public int HP;
     public int MaxHP;
     public int damage;
-    public Rectangle solidArea;
-    public boolean collisionOn = false;
+    public int speed;
+    //public Rectangle solidArea;   //(Дуже крута ідея ходьби)
+    //public boolean collisionOn = false;
 
 
     public BufferedImage im, up2, down1, down2, left1, left2, right1, right2;
-    public String direction;
+    //public String direction; //(Дуже крута ідея ходьби)
 
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -35,18 +36,18 @@ public class Entity extends GameObject implements LivingStat {
 
         worldX =spawnX*gp.tileSize;
         worldY =spawnY*gp.tileSize;
-        Settings.speed = 12;//gp.tileSize;
+        speed = gp.tileSize;//12
     }
 
     public void setDefaultValues(){
         worldX =gp.tileSize * 23;
         worldY =gp.tileSize * 21;
-        Settings.speed = gp.tileSize;
-        direction = "down";
+        speed = gp.tileSize;
+        //direction = "down"; //(Дуже крута ідея ходьби)
     }
 
     public void update(){
-        int i = (int)(Math.random()*3);
+        /*int i = (int)(Math.random()*3); //(Дуже крута ідея ходьби)
         if (i==0 && !collisionOn) {
             worldY -= Settings.speed;
         } else if (i==1 && !collisionOn) {
@@ -55,7 +56,20 @@ public class Entity extends GameObject implements LivingStat {
             worldX -= Settings.speed;
         } else if (i==3 && !collisionOn) {
             worldX += Settings.speed;
-        }
+        }*/
+
+            int i = (int)(Math.random()*3);
+            if (i==0) {
+                worldY -= speed;
+            } else if (i==1) {
+                worldY += speed;
+            } else if (i==2) {
+                worldX -= speed;
+            } else if (i==3) {
+                worldX += speed;
+            }
+
+
     }
 
     @Override

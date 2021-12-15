@@ -1,15 +1,49 @@
 package Collision;
+import Character.CharacterHandler;
 import Objects.Entity.Entity;
 import Objects.Entity.Player;
 import Window.GamePanel;
 import Window.Settings;
 
 public class CollisionChecker {
-    GamePanel gp;
-    public CollisionChecker(GamePanel gp) {
+    //GamePanel gp;
+    /*public CollisionChecker(GamePanel gp) {
         this.gp = gp;
+    }*/
+
+    private static boolean checkWalk(int c){
+        boolean g;
+        switch (c) {
+            case (3), (4) -> g = false;
+            case (0), (1), (2) -> g = true;
+            default -> throw new IllegalStateException("Unexpected value: " + c);
+        }
+        return g;
     }
-    public void checkTile(Entity entity) {
+
+    public static boolean checkMove(Entity entity, CharacterHandler keyH){
+        int nextPosX=entity.worldX,nextPosY = entity.worldY;
+        if (keyH.upPressed) {
+            nextPosY = entity.worldY - entity.speed;
+        } else if (keyH.downPressed) {
+            nextPosY =entity.worldY + entity.speed;
+        } else if (keyH.leftPressed) {
+            nextPosX =entity.worldX - entity.speed;
+        } else if (keyH.rightPressed) {
+            nextPosX = entity.worldX + entity.speed;
+        }
+        if ((nextPosX<0)||(nextPosY<0)||((nextPosX/entity.gp.tileSize)>entity.gp.maxWorldRow)||((nextPosY/entity.gp.tileSize)>entity.gp.maxWorldCol)){
+            return false;
+        }
+        else{
+            if(checkWalk(Settings.mapTileNum[nextPosX/entity.gp.tileSize][nextPosY/entity.gp.tileSize])){
+                return true;
+            }
+            else{return false;}
+        }
+    }
+
+    /*public void checkTile(Entity entity) {  //(Дуже крута ідея ходьби) //пофіксити перевантаження індексім масивів при краю мапи
         int entityLeftWorldX = entity.worldX + entity.solidArea.x;
         int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
         int entityTopWorldY = entity.worldY + entity.solidArea.y;
@@ -56,5 +90,5 @@ public class CollisionChecker {
                     entity.collisionOn = true;
                 }
             }
-    }
+    }*/
 }

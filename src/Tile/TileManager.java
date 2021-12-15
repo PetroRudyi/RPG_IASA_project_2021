@@ -13,7 +13,9 @@ public class TileManager {
     public TileManager(GamePanel gp, int k, int p) {
         this.gp = gp;
         tile = new Tile[5];
-        Settings.mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+        /*System.out.print("maxWorldCol: " + gp.maxWorldCol);
+        System.out.print("maxWorldRow: " + gp.maxWorldRow);
+        Settings.mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];*/
 
         getTileImage();
 

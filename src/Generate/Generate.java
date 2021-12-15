@@ -249,6 +249,7 @@ public class Generate {
         do {
             System.out.printf("Width: %d   Height: %d\n", 12*50,12*50);
             System.out.print("");
+            System.out.print("");
             System.out.print("Input a K (k+1): ");
             k = in.nextInt();
             System.out.print("Input a P: ");
