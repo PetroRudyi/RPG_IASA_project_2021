@@ -64,18 +64,13 @@ public class Player extends Entity {
             }
         }*/
 
-        System.out.print("maxWorldCol: " + gp.maxWorldCol+"\n");
-        if(CollisionChecker.checkMove(this,keyH)) {
-            if (keyH.upPressed) {
-                worldY -= speed;
-            } else if (keyH.downPressed) {
-                worldY += speed;
-            } else if (keyH.leftPressed) {
-                worldX -= speed;
-            } else if (keyH.rightPressed) {
-                worldX += speed;
-            }
+        //System.out.print("maxWorldCol: " + gp.maxWorldCol+"\n");
+        if(isEnemy()){
+
         }
+        else if(CollisionChecker.checkMove(this,keyH)) {
+            move();
+            }
 
 
     }
@@ -84,6 +79,40 @@ public class Player extends Entity {
     public void draw(Graphics2D g2) {
         BufferedImage image = im;
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+    }
+
+    public void move() {
+        if (keyH.upPressed) {
+            worldY -= speed;
+        } else if (keyH.downPressed) {
+            worldY += speed;
+        } else if (keyH.leftPressed) {
+            worldX -= speed;
+        } else if (keyH.rightPressed) {
+            worldX += speed;
+        }
+    }
+
+    private boolean isEnemy (){
+        int nextPosX=worldX,nextPosY = worldY;
+        if (keyH.upPressed) {
+            nextPosY = worldY - speed;
+        } else if (keyH.downPressed) {
+            nextPosY =worldY + speed;
+        } else if (keyH.leftPressed) {
+            nextPosX =worldX - speed;
+        } else if (keyH.rightPressed) {
+            nextPosX = worldX + speed;
+        }
+        boolean c = true;
+        for (int i = 0; (i<Settings.Mobs.size())&&c; i++){
+            if ((nextPosY == Settings.Mobs.get(i).worldY) && (nextPosX == Settings.Mobs.get(i).worldX)) {
+                attack(Settings.Mobs.get(i));
+                c = false;
+                break;
+            }
+        }
+        return !c;
     }
 
     @Override

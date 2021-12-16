@@ -32,14 +32,29 @@ public class CollisionChecker {
         } else if (keyH.rightPressed) {
             nextPosX = entity.worldX + entity.speed;
         }
-        if ((nextPosX<0)||(nextPosY<0)||((nextPosX/entity.gp.tileSize)>entity.gp.maxWorldRow)||((nextPosY/entity.gp.tileSize)>entity.gp.maxWorldCol)){
+        if ((nextPosX<0)||(nextPosY<0)||((1+nextPosX/entity.gp.tileSize)>entity.gp.maxWorldCol)||((1+nextPosY/entity.gp.tileSize)>entity.gp.maxWorldRow)){
             return false;
         }
         else{
-            if(checkWalk(Settings.mapTileNum[nextPosX/entity.gp.tileSize][nextPosY/entity.gp.tileSize])){
-                return true;
-            }
-            else{return false;}
+            return checkWalk(Settings.mapTileNum[nextPosX / entity.gp.tileSize][nextPosY / entity.gp.tileSize]);
+        }
+    }
+    public static boolean checkMoveMobs(Entity entity, int keyH){
+        int nextPosX=entity.worldX,nextPosY = entity.worldY;
+        if (keyH==0) {
+            nextPosY = entity.worldY - entity.speed;
+        } else if (keyH==1) {
+            nextPosY =entity.worldY + entity.speed;
+        } else if (keyH==2) {
+            nextPosX =entity.worldX - entity.speed;
+        } else if (keyH==3) {
+            nextPosX = entity.worldX + entity.speed;
+        }
+        if ((nextPosX<0)||(nextPosY<0)||((nextPosX/entity.gp.tileSize)>(entity.gp.maxWorldCol-1))||((nextPosY/entity.gp.tileSize)>(entity.gp.maxWorldRow-1))){
+            return false;
+        }
+        else{
+            return checkWalk(Settings.mapTileNum[nextPosX / entity.gp.tileSize][nextPosY / entity.gp.tileSize]);
         }
     }
 

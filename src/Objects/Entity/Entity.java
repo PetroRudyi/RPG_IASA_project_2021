@@ -1,11 +1,11 @@
 package Objects.Entity;
 
 
+import Collision.CollisionChecker;
 import Objects.GameObject;
 import Window.GamePanel;
 import Window.Settings;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity extends GameObject implements LivingStat {
@@ -57,18 +57,59 @@ public class Entity extends GameObject implements LivingStat {
         } else if (i==3 && !collisionOn) {
             worldX += Settings.speed;
         }*/
-
-            int i = (int)(Math.random()*3);
-            if (i==0) {
-                worldY -= speed;
-            } else if (i==1) {
-                worldY += speed;
-            } else if (i==2) {
-                worldX -= speed;
-            } else if (i==3) {
-                worldX += speed;
+        int i = (int)(Math.random()*3);
+        if(isEnemy(i)){
+            attack(Settings.player);
+        }
+        else if(CollisionChecker.checkMoveMobs(this,i)) {
+                move(i);
             }
 
+    }
+
+    private void move(int i){
+        if (i==0) {
+            worldY -= speed;
+        } else if (i==1) {
+            worldY += speed;
+        } else if (i==2) {
+            worldX -= speed;
+        } else if (i==3) {
+            worldX += speed;
+        }
+    }
+
+    private boolean isEnemy (int m){
+        int nextPosX=worldX,nextPosY = worldY;
+        if (m==0) {
+            nextPosY = worldY - speed;
+        } else if (m==1) {
+            nextPosY =worldY + speed;
+        } else if (m==2) {
+            nextPosX =worldX - speed;
+        } else if (m==3) {
+            nextPosX = worldX + speed;
+        }
+
+        return ((Settings.player.worldX == nextPosX) || (Settings.player.worldY == nextPosY));
+    }
+
+    public void attack(Entity entity){
+        entity.applyDamage(damage);
+    }
+
+    private void applyDamage(int damage){
+        if (HP>0){
+            HP-=damage;
+            if(HP<0){
+                HP=0;
+                dead();
+            };
+        }
+        else{dead();};
+    }
+
+    private void dead(){
 
     }
 
