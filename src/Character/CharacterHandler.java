@@ -66,5 +66,8 @@ public class CharacterHandler implements KeyListener {
         if(c == KeyEvent.VK_RIGHT){
             rightPressed = false;
         }
+        if(c == KeyEvent.VK_E){
+            action = false;
+        }
     }
 }
