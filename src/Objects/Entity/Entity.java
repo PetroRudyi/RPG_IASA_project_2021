@@ -21,7 +21,7 @@ public class Entity extends GameObject implements LivingStat,Actions {
     //public boolean collisionOn = false;
 
 
-    public BufferedImage im, up2, down1, down2, left1, left2, right1, right2;
+    public BufferedImage im, im2, down1, down2, left1, left2, right1, right2;
     //public String direction; //(Дуже крута ідея ходьби)
 
     public int spriteCounter = 0;

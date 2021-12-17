@@ -22,48 +22,21 @@ public class Player extends Entity {
     public void getPlayerImage() {
         try {
             im = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/pl1.png")));
-//            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/pl1.png"))); doght2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/pl1.png")));
-        } catch (IOException e) {
+            im2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/im2.png")));
+ } catch (IOException e) {
             e.printStackTrace();
         }
     }
     @Override
     public void update(){
-        /*if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
-            if (keyH.upPressed) {
-                direction = "up";
-                if(!collisionOn) {
-                    worldY -= Settings.speed;
-                }
-            } else if (keyH.downPressed) {
-                direction = "down";
-                if(!collisionOn) {
-                    worldY += Settings.speed;
-                }
-            } else if (keyH.leftPressed) {
-                direction = "left";
-                if(!collisionOn) {
-                    worldX -= Settings.speed;
-                }
-            } else if (keyH.rightPressed) {
-                direction = "right";
-                if(!collisionOn) {
-                    worldX += Settings.speed;
-                }
-            }
-            collisionOn = false;
-            gp.colChecker.checkTile(this);
-
-            spriteCounter++;
-            if (spriteCounter > 12) {
+        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+                        spriteCounter++;
                 if (spriteNum == 1) {
                     spriteNum = 2;
                 } else if (spriteNum == 2) {
                     spriteNum = 1;
                 }
-                spriteCounter = 0;
-            }
-        }*/
+        }
 
         //System.out.print("maxWorldCol: " + gp.maxWorldCol+"\n");
         if(isEnemy()){ //проверка на врага. Если враг есть сразу же атакую его
@@ -77,8 +50,13 @@ public class Player extends Entity {
     }
 
 
-    public void draw(Graphics2D g2) {
-        BufferedImage image = im;
+    public void draw(Graphics2D g2) { BufferedImage image = null;
+        if(spriteNum ==1){
+            image = im;
+        }
+        else{
+            image = im2;
+        }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
