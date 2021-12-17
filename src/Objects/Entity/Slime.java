@@ -29,10 +29,24 @@ public class Slime extends Entity {
         }
     }
 
+    @Override
+    public void applyDamage(int damage){
+
+        if (HP>0){
+            HP-=damage;
+            if(HP<0){
+                HP=0;
+                dead();
+            };
+        }
+        else{dead();};
+        System.out.print("Slime has attacked: " + HP+"\n");
+    }
+
 
     public void draw(Graphics2D g2) {
         BufferedImage image = im;
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX+worldX-Settings.PlayerX, screenY+worldY-Settings.PlayerY, gp.tileSize, gp.tileSize, null);
     }
 
     @Override

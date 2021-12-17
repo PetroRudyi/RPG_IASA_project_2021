@@ -46,8 +46,8 @@ public class TileManager {
         Settings.mapTileNum = M.getIdMap();
         int[] scp = M.SpawnPlayerCord();
         Settings.rating = M.getIslandAreaRating();
-        Settings.SpawnX = scp[0];
-        Settings.SpawnY = scp[1];
+        Settings.PlayerX = scp[0];
+        Settings.PlayerY = scp[1];
         Settings.xyisland= M.getIsland();
         /*вставить загрузку сюда даных о карте
         о том где спаун игрока

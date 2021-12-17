@@ -8,12 +8,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Set;
 
 public class Player extends Entity {
     public static CharacterHandler keyH;
 
     public Player(GamePanel gp, CharacterHandler keyH) {
-        super(gp, Settings.SpawnX, Settings.SpawnY, gp.screenWidth / 2 - (gp.tileSize / 2), gp.screenHeight / 2 - (gp.tileSize / 2), 100, 100, 20);
+        super(gp, Settings.PlayerX, Settings.PlayerY, gp.screenWidth / 2 - (gp.tileSize / 2), gp.screenHeight / 2 - (gp.tileSize / 2), 100, 100, 20);
         Player.keyH = keyH;
         getPlayerImage();
         //solidArea = new Rectangle(gp.tileSize / 3, gp.tileSize /3, gp.tileSize / 3 + 1, gp.tileSize / 3+1);
@@ -91,6 +92,9 @@ public class Player extends Entity {
         } else if (keyH.rightPressed) {
             worldX += speed;
         }
+        Settings.PlayerX=worldX;
+        Settings.PlayerY=worldY;
+
     }
 
     private boolean isEnemy (){

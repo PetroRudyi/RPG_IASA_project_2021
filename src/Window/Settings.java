@@ -12,8 +12,8 @@ public class Settings {
 
 
     //Player stats
-    public static int SpawnX=99;
-    public static int SpawnY=99;
+    public static int PlayerX=99;
+    public static int PlayerY=99;
     public static Player player;
 
     //free space for spawn
@@ -25,7 +25,7 @@ public class Settings {
     //character speed
     //public static int speed; //   //(Дуже крута ідея ходьби)
 
-    public static ArrayList<Slime> Mobs=new ArrayList<>();
+    public static ArrayList<Entity> Mobs=new ArrayList<>();
 
 
     public static int[] getSpawnCord(){

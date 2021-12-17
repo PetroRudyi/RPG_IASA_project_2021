@@ -8,7 +8,7 @@ import Window.Settings;
 
 import java.awt.image.BufferedImage;
 
-public class Entity extends GameObject implements LivingStat {
+public class Entity extends GameObject implements LivingStat,Actions {
     public GamePanel gp;
     public final int screenX;
     public final int screenY;
@@ -16,6 +16,7 @@ public class Entity extends GameObject implements LivingStat {
     public int MaxHP;
     public int damage;
     public int speed;
+    boolean isDead = false;
     //public Rectangle solidArea;   //(Дуже крута ідея ходьби)
     //public boolean collisionOn = false;
 
@@ -27,6 +28,7 @@ public class Entity extends GameObject implements LivingStat {
     public int spriteNum = 1;
 
     public Entity(GamePanel gp,int spawnX, int spawnY,int screenX,int screenY, int MaxHP, int HP, int damage){
+
         this.screenX = screenX;
         this.screenY = screenY;
         this.damage = damage;
@@ -57,18 +59,19 @@ public class Entity extends GameObject implements LivingStat {
         } else if (i==3 && !collisionOn) {
             worldX += Settings.speed;
         }*/
-        int i = (int)(Math.random()*3);
-        if(isEnemy(i)){
-            attack(Settings.player);
-        }
-        else if(CollisionChecker.checkMoveMobs(this,i)) {
+        if (!isDead) {
+            int i = (int) (Math.random() * (3 + 1));
+            if (isEnemy(i)) {
+                attack(Settings.player);
+            } else if (CollisionChecker.checkMoveMobs(this, i)) {
                 move(i);
             }
-        System.out.println("Slime   x: " + worldX+"   Y: "+worldY);
-
+            System.out.println("Slime   x: " + worldX + "   Y: " + worldY);
+        }
     }
 
-    private void move(int i){
+    @Override
+    public void move(int i){
         if (i==0) {
             worldY -= speed;
         } else if (i==1) {
@@ -80,7 +83,8 @@ public class Entity extends GameObject implements LivingStat {
         }
     }
 
-    private boolean isEnemy (int m){
+    @Override
+    public boolean isEnemy (int m){
         int nextPosX=worldX,nextPosY = worldY;
         if (m==0) {
             nextPosY = worldY - speed;
@@ -95,11 +99,14 @@ public class Entity extends GameObject implements LivingStat {
         return ((Settings.player.worldX == nextPosX) || (Settings.player.worldY == nextPosY));
     }
 
+    @Override
     public void attack(Entity entity){
         entity.applyDamage(damage);
     }
 
-    private void applyDamage(int damage){
+    @Override
+    public void applyDamage(int damage){
+
         if (HP>0){
             HP-=damage;
             if(HP<0){
@@ -110,8 +117,9 @@ public class Entity extends GameObject implements LivingStat {
         else{dead();};
     }
 
-    private void dead(){
-
+    @Override
+    public void dead(){
+        isDead = true;
     }
 
     @Override
