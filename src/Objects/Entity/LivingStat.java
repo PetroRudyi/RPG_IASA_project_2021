@@ -7,24 +7,24 @@ public interface LivingStat {
      * Get entity health.
      * @return Entity health
      */
-    public double getHP();
+    public int getHP();
 
     /**
      * Get entity max health.
      * @return Entity maximal health
      */
-    public double getMaxHP();
+    public int getMaxHP();
 
     /**
      * Set health of the entity.
      * @param HP amount of health
      */
-    public void setHP(double HP);
+    public void setHP(int HP);
 
     /**
      * Set maximal health of the entity.
      * @param maxHP amount of maximal health
      */
-    public void setMaxHP(double maxHP);
+    public void setMaxHP(int maxHP);
 
 }

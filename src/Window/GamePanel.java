@@ -2,6 +2,7 @@ package Window;
 
 import Character.CharacterHandler;
 import Collision.CollisionChecker;
+import Objects.Entity.Slime;
 import Tile.TileManager;
 import Objects.Entity.Player;
 
@@ -33,11 +34,14 @@ public class GamePanel extends JPanel implements Runnable {
     public TileManager tileM = new TileManager(this, Settings.k,Settings.p);
     CharacterHandler keyH = new CharacterHandler();
     Thread gameThread;
-    //public CollisionChecker colChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyH);
+    public Slime slime = new Slime(this);
+
 
 
     public GamePanel(int k, int p) {
+        Settings.Mobs.add(slime);
+        Settings.player = player;
         this.maxWorldCol = 600/p;
         this.maxWorldRow = 600/p;
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -50,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         System.out.println("Point 8");
         startGameThread();
+
     }
 
     public void startGameThread() {
@@ -91,6 +96,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
+        System.out.println("Point 9");
+
+        slime.update();
         player.update();
     }
 
@@ -99,6 +107,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
         tileM.draw(g2);
         player.draw(g2);
+        slime.draw(g2);
         g2.dispose();
     }
 

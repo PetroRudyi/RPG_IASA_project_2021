@@ -14,7 +14,7 @@ public class Player extends Entity {
 
     public Player(GamePanel gp, CharacterHandler keyH) {
         super(gp, Settings.SpawnX, Settings.SpawnY, gp.screenWidth / 2 - (gp.tileSize / 2), gp.screenHeight / 2 - (gp.tileSize / 2), 100, 100, 20);
-        this.keyH = keyH;
+        Player.keyH = keyH;
         getPlayerImage();
         //solidArea = new Rectangle(gp.tileSize / 3, gp.tileSize /3, gp.tileSize / 3 + 1, gp.tileSize / 3+1);
     }
@@ -65,7 +65,7 @@ public class Player extends Entity {
         }*/
 
         //System.out.print("maxWorldCol: " + gp.maxWorldCol+"\n");
-        if(isEnemy()){
+        if(isEnemy()){ //проверка на врага. Если враг есть сразу же атакую его
 
         }
         else if(CollisionChecker.checkMove(this,keyH)) {
@@ -116,22 +116,22 @@ public class Player extends Entity {
     }
 
     @Override
-    public double getHP() {
+    public int getHP() {
         return 0;
     }
 
     @Override
-    public double getMaxHP() {
+    public int getMaxHP() {
         return 0;
     }
 
     @Override
-    public void setHP(double HP) {
+    public void setHP(int HP) {
 
     }
 
     @Override
-    public void setMaxHP(double maxHP) {
+    public void setMaxHP(int maxHP) {
 
     }
 }

@@ -45,6 +45,7 @@ public class TileManager {
         Generate M = new Generate(12 * 50, 12 * 50, k, p);
         Settings.mapTileNum = M.getIdMap();
         int[] scp = M.SpawnPlayerCord();
+        Settings.rating = M.getIslandAreaRating();
         Settings.SpawnX = scp[0];
         Settings.SpawnY = scp[1];
         Settings.xyisland= M.getIsland();

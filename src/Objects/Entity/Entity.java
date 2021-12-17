@@ -114,22 +114,22 @@ public class Entity extends GameObject implements LivingStat {
     }
 
     @Override
-    public double getHP() {
+    public int getHP() {
         return 0;
     }
 
     @Override
-    public double getMaxHP() {
+    public int getMaxHP() {
         return 0;
     }
 
     @Override
-    public void setHP(double HP) {
+    public void setHP(int HP) {
 
     }
 
     @Override
-    public void setMaxHP(double maxHP) {
+    public void setMaxHP(int maxHP) {
 
     }
 
