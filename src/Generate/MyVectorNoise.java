@@ -89,7 +89,6 @@ public class MyVectorNoise {
                 //System.out.printf("%d%n",r);*/
 
 
-
                 noiseMap[x][y] = (int)(noise * 0xFF);
             }
         }

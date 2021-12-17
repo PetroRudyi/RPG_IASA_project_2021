@@ -1,5 +1,6 @@
 package Window;
 
+import Objects.Build.Build;
 import Objects.Entity.Entity;
 import Objects.Entity.Player;
 import Objects.Entity.Slime;
@@ -26,6 +27,8 @@ public class Settings {
     //public static int speed; //   //(Дуже крута ідея ходьби)
 
     public static ArrayList<Entity> Mobs=new ArrayList<>();
+
+    public static ArrayList<Build> Builds=new ArrayList<>();
 
 
     public static int[] getSpawnCord(){

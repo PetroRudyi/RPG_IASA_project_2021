@@ -67,8 +67,10 @@ public class Entity extends GameObject implements LivingStat,Actions {
             } else if (CollisionChecker.checkMoveMobs(this, i)) {
                 move(i);
             }
-            System.out.println("Slime   x: " + worldX + "   Y: " + worldY);
         }
+    }
+
+    public void sayCord(){
     }
 
     @Override

@@ -46,11 +46,13 @@ public class Player extends Entity {
             move();
             }
         System.out.println("Player   x: " + worldX+"   Y: "+worldY);
+        Settings.player=this;
 
     }
 
 
-    public void draw(Graphics2D g2) { BufferedImage image = null;
+    public void draw(Graphics2D g2) {
+        BufferedImage image = null;
         if(spriteNum ==1){
             image = im;
         }

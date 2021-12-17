@@ -20,6 +20,34 @@ public class Slime extends Entity {
         //solidArea = new Rectangle(gp.tileSize / 3, gp.tileSize /3, gp.tileSize / 3 + 1, gp.tileSize / 3+1);
     }
 
+    @Override
+    public void update(){
+        /*int i = (int)(Math.random()*3); //(Дуже крута ідея ходьби)
+        if (i==0 && !collisionOn) {
+            worldY -= Settings.speed;
+        } else if (i==1 && !collisionOn) {
+            worldY += Settings.speed;
+        } else if (i==2 && !collisionOn) {
+            worldX -= Settings.speed;
+        } else if (i==3 && !collisionOn) {
+            worldX += Settings.speed;
+        }*/
+        if (!isDead) {
+            int i = (int) (Math.random() * (3 + 1));
+            if (isEnemy(i)) {
+                attack(Settings.player);
+            } else if (CollisionChecker.checkMoveMobs(this, i)) {
+                move(i);
+            }
+            sayCord();
+        }
+    }
+
+    public void sayCord(){
+        System.out.println("Slime   x: " + worldX + "   Y: " + worldY);
+
+    }
+
     public void getSlimeImage() {
         try {
             im = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/mobs/slime_1.png")));
