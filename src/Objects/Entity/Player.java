@@ -71,7 +71,7 @@ public class Player extends Entity {
         else if(CollisionChecker.checkMove(this,keyH)) {
             move();
             }
-
+        System.out.println("Player   x: " + worldX+"   Y: "+worldY);
 
     }
 

@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int worldHeight = tileSize* maxWorldRow;
 
     //fps - frames per second
-    int fps = 5;
+    int fps = 2;
 
     public TileManager tileM = new TileManager(this, Settings.k,Settings.p);
     CharacterHandler keyH = new CharacterHandler();
@@ -96,7 +96,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        System.out.println("Point 9");
+        //System.out.println("Point 9");
 
         slime.update();
         player.update();
