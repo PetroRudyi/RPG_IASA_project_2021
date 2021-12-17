@@ -30,6 +30,12 @@ public class Settings {
 
     public static ArrayList<Build> Builds=new ArrayList<>();
 
+    public static void setCords(int X, int Y){
+        PlayerX = X;
+        PlayerY = Y;
+        player.worldX=X;
+        player.worldY=Y;
+    }
 
     public static int[] getSpawnCord(){
         int i = rating[0];

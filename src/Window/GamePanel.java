@@ -3,6 +3,7 @@ package Window;
 import Character.CharacterHandler;
 import Collision.CollisionChecker;
 import Objects.Build.Corovan;
+import Objects.Build.Money;
 import Objects.Entity.Slime;
 import Tile.TileManager;
 import Objects.Entity.Player;
@@ -52,6 +53,12 @@ public class GamePanel extends JPanel implements Runnable {
             Corovan corovan = new Corovan(this);
             Settings.Builds.add(corovan);
         }
+        for(int i =0;i<(Settings.xyisland.get(Settings.rating[0]).size())/10;i++){
+            Money money = new Money(this);
+            Settings.Builds.add(money);
+        }
+
+
         System.out.println("Corovan   x: " + Settings.Builds.get(0).worldX + "   Y: " + Settings.Builds.get(0).worldY);
         Settings.player = player;
         this.maxWorldCol = 600/p;

@@ -85,8 +85,18 @@ public class Player extends Entity {
         } else if (keyH.rightPressed) {
             worldX += speed;
         }
-        Settings.PlayerX=worldX;
-        Settings.PlayerY=worldY;
+        Settings.setCords(worldX,worldY);
+        for (int i = 1; (i<Settings.Builds.size()); i++){
+            if ((worldY == Settings.Builds.get(i).worldY) && (worldX == Settings.Builds.get(i).worldX)) {
+                try {
+                    Settings.Builds.get(i).update();
+                    Settings.Builds.remove(i);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
 
     }
 
@@ -102,7 +112,7 @@ public class Player extends Entity {
             nextPosX = worldX + speed;
         }
         boolean c = true;
-        for (int i = 0; (i<Settings.Mobs.size())&&c; i++){
+        for (int i = 0; (i<Settings.Mobs.size()); i++){
             if ((nextPosY == Settings.Mobs.get(i).worldY) && (nextPosX == Settings.Mobs.get(i).worldX)) {
                 attack(Settings.Mobs.get(i));
                 c = false;
