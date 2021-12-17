@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxScreenRow = 16;
     public final int screenWidth = tileSize * maxScreenCol; //768pix
     public final int screenHeight = tileSize * maxScreenRow; //576pix
+    public Interface inter = new Interface(this);
 
     //World Settings
     public int maxWorldCol;
@@ -108,6 +109,7 @@ public class GamePanel extends JPanel implements Runnable {
         tileM.draw(g2);
         player.draw(g2);
         slime.draw(g2);
+        inter.draw(g2);
         g2.dispose();
     }
 

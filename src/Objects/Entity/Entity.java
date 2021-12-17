@@ -14,6 +14,7 @@ public class Entity extends GameObject implements LivingStat,Actions {
     public final int screenY;
     public int HP;
     public int MaxHP;
+    public int coin = 0;
     public int damage;
     public int speed;
     boolean isDead = false;
@@ -106,13 +107,12 @@ public class Entity extends GameObject implements LivingStat,Actions {
 
     @Override
     public void applyDamage(int damage){
-
         if (HP>0){
             HP-=damage;
             if(HP<0){
                 HP=0;
                 dead();
-            };
+            }
         }
         else{dead();};
     }
