@@ -2,12 +2,12 @@ package Objects.Entity;
 
 public interface LivingStat {
 
-    public int getHP();
+    int getHP();
 
-    public int getMaxHP();
+    int getMaxHP();
 
-    public void setHP(int HP);
+    void setHP(int HP);
 
-    public void setMaxHP(int maxHP);
+    void setMaxHP(int maxHP);
 
 }

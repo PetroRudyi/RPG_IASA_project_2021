@@ -4,15 +4,15 @@ import Window.Settings;
 
 public interface Actions {
 
-    public void move(int i);
+    void move(int i);
 
-    public boolean isEnemy (int m);
+    boolean isEnemy (int m);
 
-    public void attack(Entity entity);
+    void attack(Entity entity);
 
-    public void applyDamage(int damage);
+    void applyDamage(int damage);
 
-    public void dead();
+    void dead();
 
 
 }
