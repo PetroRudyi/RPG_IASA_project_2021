@@ -6,6 +6,7 @@ import Objects.GameObject;
 import Window.GamePanel;
 import Window.Settings;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity extends GameObject implements LivingStat,Actions {
@@ -71,6 +72,9 @@ public class Entity extends GameObject implements LivingStat,Actions {
     }
 
     public void sayCord(){
+    }
+
+    public void draw(Graphics2D g2) {
     }
 
     @Override

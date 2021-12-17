@@ -3,6 +3,7 @@ package Objects.Build;
 import Objects.GameObject;
 import Window.GamePanel;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -23,7 +24,10 @@ public class Build extends GameObject {
     }
 
     public void update() throws IOException {
-
     }
+
+    public void draw(Graphics2D g2) {
+    }
+
 
 }

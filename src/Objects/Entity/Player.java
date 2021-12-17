@@ -19,28 +19,33 @@ public class Player extends Entity {
         getPlayerImage();
         //solidArea = new Rectangle(gp.tileSize / 3, gp.tileSize /3, gp.tileSize / 3 + 1, gp.tileSize / 3+1);
     }
+
     public void getPlayerImage() {
         try {
             im = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/pl1.png")));
             im2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/im2.png")));
- } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     @Override
     public void update(){
-        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
-                        spriteCounter++;
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
-                }
-        }
+
 
         //System.out.print("maxWorldCol: " + gp.maxWorldCol+"\n");
-        if(isEnemy()){ //проверка на врага. Если враг есть сразу же атакую его
 
+        if(keyH.action){
+            if((worldY==Settings.Builds.get(0).worldY)&&(worldX==Settings.Builds.get(0).worldX))
+            try {
+                Settings.Builds.get(0).update();
+                coin=Settings.player.coin;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        else if(isEnemy()){ //проверка на врага. Если враг есть сразу же атакую его
         }
         else if(CollisionChecker.checkMove(this,keyH)) {
             move();
@@ -63,6 +68,14 @@ public class Player extends Entity {
     }
 
     public void move() {
+        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+            spriteCounter++;
+            if (spriteNum == 1) {
+                spriteNum = 2;
+            } else if (spriteNum == 2) {
+                spriteNum = 1;
+            }
+        }
         if (keyH.upPressed) {
             worldY -= speed;
         } else if (keyH.downPressed) {

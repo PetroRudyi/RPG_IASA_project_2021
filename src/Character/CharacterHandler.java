@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class CharacterHandler implements KeyListener {
-    public boolean upPressed, downPressed, leftPressed, rightPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, action;
     /**
      * Invoked when a key has been typed.
      * See the class description for {@link KeyEvent} for a definition of
@@ -38,6 +38,9 @@ public class CharacterHandler implements KeyListener {
         }
         if(c == KeyEvent.VK_RIGHT){
             rightPressed = true;
+        }
+        if(c == KeyEvent.VK_E){
+            action = true;
         }
     }
 

@@ -12,6 +12,7 @@ import java.util.Objects;
 
 public class Corovan extends Build{
     int gold;
+    boolean isFull=true;
 
     public Corovan(GamePanel gp){
         super(gp, 0, 0, gp.screenWidth / 2 - (gp.tileSize / 2), gp.screenHeight / 2 - (gp.tileSize / 2));
@@ -24,17 +25,24 @@ public class Corovan extends Build{
 
     @Override
     public void update() {
-        try {
-            im = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/builds/corovan_2.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        if (isFull) {
+            Settings.player.coin+=gold;
+            isFull=false;
+            getCorovanImage();
         }
+
     }
 
 
     private void getCorovanImage(){
         try {
-            im = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/builds/corovan_1.png")));
+            if(isFull) {
+                im = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/builds/corovan_1.png")));
+            }
+            else {
+                im = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/builds/corovan_2.png")));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

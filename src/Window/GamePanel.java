@@ -2,6 +2,7 @@ package Window;
 
 import Character.CharacterHandler;
 import Collision.CollisionChecker;
+import Objects.Build.Corovan;
 import Objects.Entity.Slime;
 import Tile.TileManager;
 import Objects.Entity.Player;
@@ -11,6 +12,7 @@ import java.awt.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable {
     //Screen Settings
@@ -36,12 +38,21 @@ public class GamePanel extends JPanel implements Runnable {
     CharacterHandler keyH = new CharacterHandler();
     Thread gameThread;
     public Player player = new Player(this, keyH);
-    public Slime slime = new Slime(this);
+
 
 
 
     public GamePanel(int k, int p) {
-        Settings.Mobs.add(slime);
+
+        for(int i =0;i<2;i++){
+            Slime slime = new Slime(this);
+            Settings.Mobs.add(slime);
+        }
+        for(int i =0;i<1;i++){
+            Corovan corovan = new Corovan(this);
+            Settings.Builds.add(corovan);
+        }
+        System.out.println("Corovan   x: " + Settings.Builds.get(0).worldX + "   Y: " + Settings.Builds.get(0).worldY);
         Settings.player = player;
         this.maxWorldCol = 600/p;
         this.maxWorldRow = 600/p;
@@ -80,7 +91,11 @@ public class GamePanel extends JPanel implements Runnable {
         double nextDrawTime = System.nanoTime() + drawInterval;
         while (gameThread != null) {
             long currentTime = System.nanoTime();
-            update();
+            try {
+                update();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             repaint();
             try {
                 double remainTime = nextDrawTime - System.nanoTime();
@@ -96,10 +111,11 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public void update() {
+    public void update() throws IOException {
         //System.out.println("Point 9");
-
-        slime.update();
+        for(int i=0; i<Settings.Mobs.size();i++){
+            Settings.Mobs.get(i).update();
+        }
         player.update();
     }
 
@@ -107,9 +123,15 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         tileM.draw(g2);
-        player.draw(g2);
-        slime.draw(g2);
+
+        for(int i=0; i<Settings.Mobs.size();i++){
+            Settings.Mobs.get(i).draw(g2);
+        }
+        for(int i=0; i<Settings.Builds.size();i++){
+            Settings.Builds.get(i).draw(g2);
+        }
         inter.draw(g2);
+        player.draw(g2);
         g2.dispose();
     }
 
