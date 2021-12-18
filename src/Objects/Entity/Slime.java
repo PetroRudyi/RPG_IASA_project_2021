@@ -57,8 +57,8 @@ public class Slime extends Entity {
     public void getSlimeImage() {
         try {
             im = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/mobs/slime_1.png")));
-//            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/Slime/pl1.png"))); doght2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/Slime/pl1.png")));
-        } catch (IOException e) {
+            im2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/mobs/dead.png")));
+      } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -91,7 +91,12 @@ public class Slime extends Entity {
 
 
     public void draw(Graphics2D g2) {
-        BufferedImage image = im;
+        BufferedImage image;
+        if(!isDead){
+             image = im;
+        }
+        else{image = im2;
+        }
         g2.drawImage(image, screenX+worldX-Settings.PlayerX, screenY+worldY-Settings.PlayerY, gp.tileSize, gp.tileSize, null);
     }
 

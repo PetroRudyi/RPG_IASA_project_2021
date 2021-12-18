@@ -18,7 +18,7 @@ public class Settings {
     public static int PlayerX=99;
     public static int PlayerY=99;
     public static Player player;
-    public static int player_lives = 1;
+    public static int player_lives = 3;
     //free space for spawn
     public static ArrayList<ArrayList<int[]>> xyisland;
     public static int[] rating;
