@@ -2,6 +2,7 @@ package Character;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import Window.GamePanel;
 
 public class CharacterHandler implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed, action;
@@ -27,20 +28,28 @@ public class CharacterHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int c = e.getKeyCode();
-        if(c == KeyEvent.VK_UP){
-            upPressed = true;
+
+        if (GamePanel.gameState == GamePanel.menu) {
+            if (c == KeyEvent.VK_ENTER) {
+                GamePanel.gameState =GamePanel.play;
+            }
         }
-        if(c == KeyEvent.VK_DOWN){
-            downPressed = true;
-        }
-        if(c == KeyEvent.VK_LEFT){
-            leftPressed = true;
-        }
-        if(c == KeyEvent.VK_RIGHT){
-            rightPressed = true;
-        }
-        if(c == KeyEvent.VK_E){
-            action = true;
+        if (GamePanel.gameState == GamePanel.play) {
+            if (c == KeyEvent.VK_UP) {
+                upPressed = true;
+            }
+            if (c == KeyEvent.VK_DOWN) {
+                downPressed = true;
+            }
+            if (c == KeyEvent.VK_LEFT) {
+                leftPressed = true;
+            }
+            if (c == KeyEvent.VK_RIGHT) {
+                rightPressed = true;
+            }
+            if (c == KeyEvent.VK_E) {
+                action = true;
+            }
         }
     }
 

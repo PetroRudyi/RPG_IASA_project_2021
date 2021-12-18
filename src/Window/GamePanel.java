@@ -26,6 +26,10 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow; //576pix
     public Interface inter = new Interface(this);
 
+    //Menu
+    public static int gameState;
+    public final static int menu = 0;
+    public final static int play = 1;
     //World Settings
     public int maxWorldCol;
     public int maxWorldRow;
@@ -85,6 +89,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void startGameThread() {
+        gameState = menu;
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -127,28 +132,33 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() throws IOException {
-        //System.out.println("Point 9");
-        player.update();
-        for(int i=0; i<Settings.Mobs.size();i++){
-            Settings.Mobs.get(i).update();
+        if(gameState == play) {
+            player.update();
+            for (int i = 0; i < Settings.Mobs.size(); i++) {
+                Settings.Mobs.get(i).update();
+            }
         }
-
     }
 
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        tileM.draw(g2);
+            super.paintComponent(g);
+            Graphics2D g2 = (Graphics2D) g;
+            if(gameState == menu){
+                inter.draw(g2);
+            }
+        else {
+            tileM.draw(g2);
 
-        for(int i=0; i<Settings.Mobs.size();i++){
-            Settings.Mobs.get(i).draw(g2);
+            for (int i = 0; i < Settings.Mobs.size(); i++) {
+                Settings.Mobs.get(i).draw(g2);
+            }
+            for (int i = 0; i < Settings.Builds.size(); i++) {
+                Settings.Builds.get(i).draw(g2);
+            }
+            inter.draw(g2);
+            player.draw(g2);
+            g2.dispose();
         }
-        for(int i=0; i<Settings.Builds.size();i++){
-            Settings.Builds.get(i).draw(g2);
-        }
-        inter.draw(g2);
-        player.draw(g2);
-        g2.dispose();
     }
 
 }
