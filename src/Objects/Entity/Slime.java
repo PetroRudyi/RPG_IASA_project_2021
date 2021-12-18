@@ -9,8 +9,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Set;
 
 import static Window.Settings.player;
+import static Window.Settings.player_lives;
 
 public class Slime extends Entity {
 
@@ -38,7 +40,7 @@ public class Slime extends Entity {
         if (!isDead) {
             int i = (int) (Math.random() * (3 + 1));
             if (isEnemy(i)) {
-                gp.inter.showMessage2("Hit!", gp.screenHeight/5 - gp.tileSize/2, worldY + 30, 40, Color.WHITE);
+                gp.inter.showMessage2("Hit!", gp.screenHeight/5 - gp.tileSize/2, gp.screenHeight/3 + 30, 40, Color.WHITE);
                 attack(player);
             } else if (CollisionChecker.checkMoveMobs(this, i)) {
                 move(i);
@@ -72,13 +74,18 @@ public class Slime extends Entity {
             };
         }
         else{dead();};
-        String text = "Slime with "+ + player.HP+" xp has attacked: " ;
-        if(player.HP == 0){
-            text = "You were killed";
+        String text = "Slime with "+ HP+" xp has attacked: " ;
+        if (player.HP == 0  && Settings.player_lives >1){
+            text = "You've lost your life";
+            Settings.player_lives --;
+            player.HP = player.MaxHP;
+        }else if(player.HP == 0 && Settings.player_lives == 1){
+            text = "You were killed!";
+            Interface.gameFinished = true;
         }
             gp.inter.showMessage(text, gp.screenHeight/5 - gp.tileSize/2, 150, 20, Interface.violetForDisplyingMessages);
         //+ "-"+damage+ "xp"
-        gp.inter.showMessage2(HP + " xp" , worldX - gp.tileSize/2, 170, 35, Interface.malynovy);
+        gp.inter.showMessage2("-"+damage+ "xp to slime's life" , gp.screenWidth/2- gp.tileSize/2, gp.screenHeight/2 + 2*gp.tileSize, 10, Interface.malynovy);
         System.out.print("Slime has attacked: " + HP+"\n");
         }
 

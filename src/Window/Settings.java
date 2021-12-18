@@ -14,12 +14,11 @@ public class Settings {
 
 
 
-
     //Player stats
     public static int PlayerX=99;
     public static int PlayerY=99;
     public static Player player;
-
+    public static int player_lives = 1;
     //free space for spawn
     public static ArrayList<ArrayList<int[]>> xyisland;
     public static int[] rating;

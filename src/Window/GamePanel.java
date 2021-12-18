@@ -47,7 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public GamePanel(int k, int p) {
 
-        for(int i =0;i<2;i++){
+        for(int i =0;i<5+Math.random()*20;i++){
             Slime slime = new Slime(this);
             Settings.Mobs.add(slime);
         }
@@ -104,7 +104,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void run() {
         double drawInterval = 1000000000 / fps;
         double nextDrawTime = System.nanoTime() + drawInterval;
-        while (gameThread != null) {
+        while (!Interface.gameFinished) {//gameThread != null
             long currentTime = System.nanoTime();
             try {
                 update();
