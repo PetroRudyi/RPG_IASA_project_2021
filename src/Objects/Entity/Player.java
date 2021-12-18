@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Player extends Entity {
-    public static CharacterHandler keyH;
+    private static CharacterHandler keyH;
 
     public Player(GamePanel gp, CharacterHandler keyH) {
         super(gp, Settings.PlayerX, Settings.PlayerY, gp.screenWidth / 2 - (gp.tileSize / 2), gp.screenHeight / 2 - (gp.tileSize / 2), 100, 100, 20);
@@ -20,7 +20,7 @@ public class Player extends Entity {
         //solidArea = new Rectangle(gp.tileSize / 3, gp.tileSize /3, gp.tileSize / 3 + 1, gp.tileSize / 3+1);
     }
 
-    public void getPlayerImage() {
+    private void getPlayerImage() {
         try {
             im = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/pl1.png")));
             im2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/im2.png")));
@@ -67,7 +67,7 @@ public class Player extends Entity {
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
-    public void move() {
+    private void move() {
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             spriteCounter++;
             if (spriteNum == 1) {

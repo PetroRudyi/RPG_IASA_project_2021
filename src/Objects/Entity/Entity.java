@@ -43,13 +43,6 @@ public class Entity extends GameObject implements LivingStat,Actions {
         speed = gp.tileSize;//12
     }
 
-    public void setDefaultValues(){
-        worldX =gp.tileSize * 23;
-        worldY =gp.tileSize * 21;
-        speed = gp.tileSize;
-        //direction = "down"; //(Дуже крута ідея ходьби)
-    }
-
     public void update(){
         /*int i = (int)(Math.random()*3); //(Дуже крута ідея ходьби)
         if (i==0 && !collisionOn) {
