@@ -85,18 +85,18 @@ public class Entity extends GameObject implements LivingStat,Actions {
 
     @Override
     public boolean isEnemy (int m){
-        int nextPosX=worldX,nextPosY = worldY;
+        int nextPosX=this.worldX,nextPosY = this.worldY;
         if (m==0) {
-            nextPosY = worldY - speed;
+            nextPosY = this.worldY - this.speed;
         } else if (m==1) {
-            nextPosY =worldY + speed;
+            nextPosY =this.worldY + this.speed;
         } else if (m==2) {
-            nextPosX =worldX - speed;
+            nextPosX =this.worldX - this.speed;
         } else if (m==3) {
-            nextPosX = worldX + speed;
+            nextPosX = this.worldX + this.speed;
         }
 
-        return ((Settings.player.worldX == nextPosX) || (Settings.player.worldY == nextPosY));
+        return ((Settings.player.worldX == nextPosX) && (Settings.player.worldY == nextPosY));
     }
 
     @Override

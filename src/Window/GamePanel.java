@@ -128,10 +128,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() throws IOException {
         //System.out.println("Point 9");
+        player.update();
         for(int i=0; i<Settings.Mobs.size();i++){
             Settings.Mobs.get(i).update();
         }
-        player.update();
+
     }
 
     public void paintComponent(Graphics g) {
