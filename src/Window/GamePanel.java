@@ -53,7 +53,7 @@ public class GamePanel extends JPanel implements Runnable {
             Corovan corovan = new Corovan(this);
             Settings.Builds.add(corovan);
         }
-        for(int i =0;i<(Settings.xyisland.get(Settings.rating[0]).size())/10;i++){
+        for(int i =0;i<(Settings.xyisland.get(Settings.rating[0]).size())/30;i++){
             Money money = new Money(this);
             Settings.Builds.add(money);
         }
@@ -65,6 +65,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.maxWorldRow = 600/p;
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
+
+        this.inter.showMessage("Welcome, player! Kill all the enemies and gather treasures!", this.screenHeight/5 - this.tileSize/2, 50, 10);
+        this.inter.showMessage("Press -> <- to move", this.screenHeight/5 - this.tileSize/2, 65, 10);
+
         System.out.println("Point 5");
         this.setDoubleBuffered(true);
         System.out.println("Point 6");

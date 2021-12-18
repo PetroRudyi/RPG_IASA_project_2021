@@ -108,6 +108,7 @@ public class Entity extends GameObject implements LivingStat,Actions {
 
     @Override
     public void attack(Entity entity){
+        gp.inter.showMessage("Hit!", gp.screenHeight/5 - gp.tileSize/2, 30, 20);
         entity.applyDamage(damage);
     }
 

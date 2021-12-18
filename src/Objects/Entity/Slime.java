@@ -68,8 +68,9 @@ public class Slime extends Entity {
             };
         }
         else{dead();};
-        System.out.print("Slime has attacked: " + HP+"\n");
-    }
+            gp.inter.showMessage("Slime has attacked: " + HP, gp.screenHeight/5 - gp.tileSize/2, 150, 20);
+            System.out.print("Slime has attacked: " + HP+"\n");
+        }
 
 
     public void draw(Graphics2D g2) {
