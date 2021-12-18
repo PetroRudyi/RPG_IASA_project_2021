@@ -66,8 +66,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
 
-        this.inter.showMessage("Welcome, player! Kill all the enemies and gather treasures!", this.screenHeight/5 - this.tileSize/2, 50, 10);
-        this.inter.showMessage("Press -> <- to move", this.screenHeight/5 - this.tileSize/2, 65, 10);
+        this.inter.showMessage("Welcome, player! Kill all the enemies and gather treasures!", this.screenHeight/4 - this.tileSize/2, 150,
+                10, new Color(81, 0, 61 ));
+        this.inter.showMessage2("Press -> <- to move", this.screenHeight/2 - this.tileSize/2, 65, 10,
+                new Color(81, 0, 61 ));
 
         System.out.println("Point 5");
         this.setDoubleBuffered(true);

@@ -2,12 +2,15 @@ package Objects.Entity;
 import Collision.CollisionChecker;
 import Window.GamePanel;
 import Window.Settings;
+import Window.Interface;
 import Character.CharacterHandler;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
+
+import static Window.Settings.player;
 
 public class Slime extends Entity {
 
@@ -35,7 +38,8 @@ public class Slime extends Entity {
         if (!isDead) {
             int i = (int) (Math.random() * (3 + 1));
             if (isEnemy(i)) {
-                attack(Settings.player);
+                gp.inter.showMessage2("Hit!", gp.screenHeight/5 - gp.tileSize/2, worldY + 30, 40, Color.WHITE);
+                attack(player);
             } else if (CollisionChecker.checkMoveMobs(this, i)) {
                 move(i);
             }
@@ -61,15 +65,21 @@ public class Slime extends Entity {
     public void applyDamage(int damage){
 
         if (HP>0){
-            HP-=damage;
+             HP-=damage;
             if(HP<0){
                 HP=0;
                 dead();
             };
         }
         else{dead();};
-            gp.inter.showMessage("Slime has attacked: " + HP, gp.screenHeight/5 - gp.tileSize/2, 150, 20);
-            System.out.print("Slime has attacked: " + HP+"\n");
+        String text = "Slime with "+ + player.HP+" xp has attacked: " ;
+        if(player.HP == 0){
+            text = "You were killed";
+        }
+            gp.inter.showMessage(text, gp.screenHeight/5 - gp.tileSize/2, 150, 20, Interface.violetForDisplyingMessages);
+        //+ "-"+damage+ "xp"
+        gp.inter.showMessage2(HP + " xp" , worldX - gp.tileSize/2, 170, 35, Interface.malynovy);
+        System.out.print("Slime has attacked: " + HP+"\n");
         }
 
 

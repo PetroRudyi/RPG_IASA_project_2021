@@ -5,11 +5,14 @@ import Objects.Entity.Entity;
 import Objects.Entity.Player;
 import Objects.Entity.Slime;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Settings {
     public static int p=10;
     public static int k=99;
+
+
 
 
     //Player stats
