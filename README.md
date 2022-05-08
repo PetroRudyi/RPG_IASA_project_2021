@@ -10,6 +10,6 @@ The program consists of the main file `Main.java`, objects in which the program 
 The main classes are object classes, `GamePanel`, `Generate`, and `GameObject`.
 
 ### Creators
-[Sofia Shaposhnikova](https://github.com/Teasotea) & [PiterRudyy](https://github.com/PiterRudyy )
+[Sofia Shaposhnikova](https://github.com/Teasotea) & [Piter Rudyy](https://github.com/PiterRudyy )
 
 ![](https://github.com/Teasotea/RPG_IASA_project_2021/blob/master/img/2d_RPG.jpg)
